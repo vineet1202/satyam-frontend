@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // User
 import RightArrow from "./../../assets/img/icons/chevron-right.svg";
 import useDimensions from "../../Hooks/useDimensions";
-import { Center } from "../../Elements/Center";
+import { CenterCol } from "../../Elements/Center";
 import { BtnBlack } from "../../Elements/Button";
 
 const ouputlabelHandler = (dimensions, label) => {
@@ -19,7 +19,7 @@ const Main = () => {
   const link = "http://localhost:5173";
 
   return (
-    <Center as="main" className="flex-col">
+    <CenterCol as="main">
       <Link
         to={link}
         className="mb-12 flex items-center gap-4 rounded-3xl bg-white py-[.4rem] pl-2 pr-4 shadow-[0_0_10px_1px_rgba(0,0,0,.2)]"
@@ -36,15 +36,15 @@ const Main = () => {
       <h1 className="mb-8 text-6xl leading-10">
         <span className="font-semibold">MSIT</span> Journal of Research
       </h1>
-      <h2 className="mb-2 text-5xl font-bold leading-10 tracking-wider text-blue">
+      <h2 className="mb-8 text-5xl font-bold leading-10 tracking-wider text-blue">
         SATYAM
       </h2>
-      <p className="mb-8 mt-8 w-1/2 text-center leading-relaxed text-[#8A8A8A]">
+      <p className="mb-8 w-1/2 text-center leading-relaxed text-[#8A8A8A]">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard
       </p>
-      <BtnBlack className="text-lg">View Journals</BtnBlack>
-    </Center>
+      <BtnBlack className="mb-12 text-lg">View Journals</BtnBlack>
+    </CenterCol>
   );
 };
 

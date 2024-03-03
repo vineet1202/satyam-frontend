@@ -6,6 +6,10 @@ export const Center = styled.div`
   justify-content: center;
 `;
 
+export const CenterCol = styled(Center)`
+  flex-direction: column;
+`;
+
 export const CenterAbsolute = styled.div`
   position: absolute;
   top: 50%;

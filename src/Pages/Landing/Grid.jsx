@@ -33,7 +33,7 @@ const Grid = () => {
           className="h-full w-full "
           style={{
             background:
-              "radial-gradient(rgba(255,255,255,.8),rgba(255,255,255,.85),rgba(255,255,255,.9),rgba(250,255,255,.8))",
+              "radial-gradient(rgba(255,255,255,.8),rgba(255,255,255,.85),rgba(255,255,255,.8),rgba(250,255,255,.7))",
           }}
         ></CenterAbsolute>
       </div>
