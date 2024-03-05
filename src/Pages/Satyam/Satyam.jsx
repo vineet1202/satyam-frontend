@@ -6,6 +6,7 @@ import Users from "./../../assets/img/icons/satyam_sidebar/users.svg";
 import SearchBar from "./SearchBar";
 import Profile from "./Profile";
 import { Flex } from "../../Elements/Flex";
+import SatyamLanding from "./Landing/SatyamLanding";
 
 const links = [
   {
@@ -35,26 +36,7 @@ const Satyam = () => {
           <Profile />
         </Flex>
         <Routes>
-          <Route
-            index
-            element={
-              <h1>
-                This is main pageThis is main pageThis is main pageThis is main
-                page This is main page This is main pageThis is main page This
-                is main page This is main page This is main page This is main
-                page This is main page This is main pageThis is main page This
-                is main page This is main page This is main page This is main
-                page This is main page This is main page This is main page This
-                is main page This is main page This is main page This is main
-                page This is main page This is main page This is main pageThis
-                is main pageThis is main pageThis is main page This is main page
-                This is main page This is main page This is main page This is
-                main page This is main page This is main page This is main
-                pageThis is main pageThis is main pageThis is main page This is
-                main page
-              </h1>
-            }
-          ></Route>
+          <Route index element={<SatyamLanding />}></Route>
           <Route path="manage" element={<h1>This is manage page</h1>}></Route>
         </Routes>
       </main>
