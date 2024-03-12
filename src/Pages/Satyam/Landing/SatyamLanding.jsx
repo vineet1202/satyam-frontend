@@ -1,7 +1,8 @@
 import useGreeting from "../../../Hooks/useGreeting";
 import Stats from "./Stats";
 import { FlexCol } from "../../../Elements/Flex";
-import Chart from "./Chart";
+import Chart from "./PieChart";
+import LineChart from "./AreaChart";
 
 const SatyamLanding = () => {
   const greeting = useGreeting();
@@ -15,6 +16,9 @@ const SatyamLanding = () => {
       </FlexCol>
       <div className="h-72">
         <Chart />
+      </div>
+      <div className="h-72">
+        <LineChart />
       </div>
     </div>
   );

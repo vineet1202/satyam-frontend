@@ -2,10 +2,10 @@
 import { Link } from "react-router-dom";
 
 // User
-import RightArrow from "./../../assets/img/icons/chevron-right.svg";
-import useDimensions from "../../Hooks/useDimensions";
-import { CenterCol } from "../../Elements/Center";
-import { BtnBlack } from "../../Elements/Button";
+import RightArrow from "./../../../assets/img/icons/chevron-right.svg";
+import useDimensions from "../../../Hooks/useDimensions";
+import { CenterCol } from "../../../Elements/Center";
+import { BtnBlack } from "../../../Elements/Button";
 
 const ouputlabelHandler = (dimensions, label) => {
   const max = Math.floor(dimensions.width / 45);

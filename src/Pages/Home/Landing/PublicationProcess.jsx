@@ -1,7 +1,8 @@
-import { Center, CenterCol } from "../../Elements/Center";
-import Upload from "./../../assets/img/icons/alternate-cloud-upload (1).svg";
-import Review from "./../../assets/img/icons/task-view (1).svg";
-import Publish from "./../../assets/img/icons/upload (1).svg";
+import { Center, CenterCol } from "../../../Elements/Center";
+import { FlexCol } from "../../../Elements/Flex";
+import Upload from "./../../../assets/img/icons/alternate-cloud-upload (1).svg";
+import Review from "./../../../assets/img/icons/task-view (1).svg";
+import Publish from "./../../../assets/img/icons/upload (1).svg";
 
 const PublicationProcessElement = ({ align, data }) => {
   return (
@@ -13,15 +14,15 @@ const PublicationProcessElement = ({ align, data }) => {
         <img src={data.icon} className="aspect-square w-20 " />
       </div>
       <div className="bg-darkgrey"></div>
-      <div
-        className={`flex flex-col justify-center  border-gray-600 pb-8  pt-8 ${align === "left" ? "pr-16" : "pl-16"}`}
+      <FlexCol
+        className={` justify-center  border-gray-600 pb-8  pt-8 ${align === "left" ? "pr-16" : "pl-16"}`}
       >
         <Center className=" mb-5 h-10 w-10  rounded-full  bg-blue text-xl text-white">
           {data.content.no}
         </Center>
         <h3 className="mb-1 text-xl">{data.content.heading}</h3>
-        <p className="text-darkgrey text-sm">{data.content.desc}</p>
-      </div>
+        <p className="text-sm text-darkgrey">{data.content.desc}</p>
+      </FlexCol>
     </div>
   );
 };

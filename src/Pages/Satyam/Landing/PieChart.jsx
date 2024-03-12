@@ -3,7 +3,7 @@ import { Pie } from "react-chartjs-2";
 
 ChartJs.register(ArcElement, Tooltip, Legend);
 
-const Chart = () => {
+const PieChart = () => {
   return (
     <Pie
       data={{
@@ -36,4 +36,4 @@ const Chart = () => {
   );
 };
 
-export default Chart;
+export default PieChart;
