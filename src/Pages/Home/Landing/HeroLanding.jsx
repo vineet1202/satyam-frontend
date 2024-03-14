@@ -43,7 +43,7 @@ const Main = () => {
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard
       </p>
-      <BtnBlack className="mb-12 text-lg">View Journals</BtnBlack>
+      <BtnBlack className="mb-12 text-lg">Submission Button</BtnBlack>
     </CenterCol>
   );
 };

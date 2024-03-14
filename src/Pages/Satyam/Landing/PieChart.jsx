@@ -1,34 +1,35 @@
 import { Chart as ChartJs, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 
 ChartJs.register(ArcElement, Tooltip, Legend);
 
+const info = {
+  ["Submitted"]: { value: 42, backgroundColor: "rgb(105, 184, 244)" },
+  ["With minor changes"]: { value: 12, backgroundColor: "rgb(253, 227, 90)" },
+  ["With major changes"]: { value: 20, backgroundColor: "rgb(182, 190, 199)" },
+  ["Rejected"]: { value: 26, backgroundColor: "rgba(255, 99, 132, 1)" },
+  ["Accepted"]: { value: 16, backgroundColor: "rgb(142, 216, 183)" },
+};
+
 const PieChart = () => {
   return (
-    <Pie
+    <Doughnut
+      options={{
+        cutout: "45%",
+        color: "black",
+      }}
       data={{
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: Object.keys(info),
         datasets: [
           {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
+            label: "No of Journals",
+            data: Object.values(info).map((el) => el.value),
+            backgroundColor: Object.values(info).map(
+              (el) => el.backgroundColor,
+            ),
+
+            borderWidth: 4,
+            borderColor: "#ebebeb",
           },
         ],
       }}
