@@ -24,7 +24,7 @@ const links = [
   {
     name: "Editorial Board",
     children: [
-      { href: "/aboutus", name: "About us" },
+      { href: "/editorspage", name: "Editors Page" },
       {
         href: "/aboutinstitute",
         name: "About Institute",
