@@ -7,6 +7,8 @@ import Header from "./Header";
 import Navbar from "./Navbar";
 import Hero from "./Hero";
 import About from "./About/About";
+import Faq from "./Faq";
+import EditorsPage from "./EditorsPage";
 
 const Landing = () => {
   return (
@@ -31,13 +33,19 @@ const Landing = () => {
                 id="#aboutus"
               />
             }
-          />
+            />
         </Routes>
+            
       </div>
-
+<Routes>
+  <Route index element={<About/>}/>
+</Routes>
       <Routes>
         <Route index element={<PublicationProcess />} />
         <Route path="/aboutus" element={<About />} />
+        <Route path="/faq" element={<Faq/>} />
+        <Route path="/editorspage" element={<EditorsPage/>} />
+        
       </Routes>
     </>
   );
