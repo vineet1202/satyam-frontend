@@ -7,6 +7,7 @@ import SearchBar from "./SearchBar";
 import Profile from "./Profile";
 import { Flex } from "../../Elements/Flex";
 import SatyamLanding from "./Landing/SatyamLanding";
+import ManageUsers from "./ManageUsers/ManageUsers";
 
 const links = [
   {
@@ -28,15 +29,16 @@ const links = [
 
 const Satyam = () => {
   return (
-    <div className="grid grid-cols-[auto_auto] gap-5 bg-[#f5f5f5] p-4">
+    <div className="grid grid-cols-[auto_auto]  gap-10 bg-[#ebebeb] p-4">
       <SideBar links={links} />
       <main>
-        <Flex className="mb-4 items-center justify-between rounded-2xl bg-white px-6 py-3">
+        <Flex className="mb-6 items-center justify-between rounded-2xl bg-white px-6 py-3">
           <SearchBar />
           <Profile />
         </Flex>
         <Routes>
           <Route index element={<SatyamLanding />}></Route>
+          <Route path="users" element={<ManageUsers />}></Route>
           <Route path="manage" element={<h1>This is manage page</h1>}></Route>
         </Routes>
       </main>

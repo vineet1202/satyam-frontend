@@ -2,10 +2,10 @@
 import { Link } from "react-router-dom";
 
 // User
-import RightArrow from "./../../assets/img/icons/chevron-right.svg";
-import useDimensions from "../../Hooks/useDimensions";
-import { CenterCol } from "../../Elements/Center";
-import { BtnBlack } from "../../Elements/Button";
+import RightArrow from "./../../../assets/img/icons/chevron-right.svg";
+import useDimensions from "../../../Hooks/useDimensions";
+import { CenterCol } from "../../../Elements/Center";
+import { BtnBlack } from "../../../Elements/Button";
 
 const ouputlabelHandler = (dimensions, label) => {
   const max = Math.floor(dimensions.width / 45);
@@ -43,7 +43,7 @@ const Main = () => {
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard
       </p>
-      <BtnBlack className="mb-12 text-lg">View Journals</BtnBlack>
+      <BtnBlack className="mb-12 text-lg">Submission Button</BtnBlack>
     </CenterCol>
   );
 };

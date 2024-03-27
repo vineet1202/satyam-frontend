@@ -1,20 +1,23 @@
 import useGreeting from "../../../Hooks/useGreeting";
 import Stats from "./Stats";
 import { FlexCol } from "../../../Elements/Flex";
-import Chart from "./Chart";
+import DoughnutChart from "./PieChart";
 
 const SatyamLanding = () => {
   const greeting = useGreeting();
   const name = "Shelly Chopra";
 
   return (
-    <div className="grid grid-cols-[7fr_3fr] gap-8">
-      <FlexCol className="gap-8 rounded-2xl bg-white px-4 py-4">
-        <p className="text-xl tracking-wider">{`${greeting} , ${name.split(" ")[0]}`}</p>
+    <div className="grid grid-flow-row  grid-cols-[5.5fr_3fr] grid-rows-[1fr_1fr] gap-x-6 gap-y-12">
+      {/* Stats */}
+      <FlexCol className="row-start-1 row-end-2 gap-10 rounded-2xl bg-white px-8 pb-12 pt-8">
+        <p className="text-2xl tracking-wider">{`${greeting}, ${name.split(" ")[0]}`}</p>
         <Stats />
       </FlexCol>
-      <div className="h-72">
-        <Chart />
+
+      {/* PieChart showing - journal submitted,accepted with minor changes, accepted with major changes,rejected,approved */}
+      <div className="row-start-1 row-end-3 ">
+        <DoughnutChart />
       </div>
     </div>
   );

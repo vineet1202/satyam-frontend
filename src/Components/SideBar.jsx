@@ -43,13 +43,13 @@ const SideBar = ({ links }) => {
   return (
     <FlexCol
       as="aside"
-      className="relative items-center justify-between gap-10 rounded-xl bg-white px-6 pb-8 pt-6"
+      className="relative min-w-max items-center justify-between gap-10 rounded-xl bg-white px-8 pb-8 pt-6"
       style={{
         minHeight: "calc(100vh - 2rem)",
       }}
     >
       {/* Show Button */}
-      <Center className="absolute left-full top-[15%] h-7  w-7 -translate-x-1/2 rounded-full bg-[#f5f5f5] shadow-lg transition-colors hover:bg-blue">
+      <Center className="absolute left-full top-[12%] h-7  w-7 -translate-x-1/2 rounded-full bg-[#f5f5f5] shadow-lg transition-colors hover:bg-blue">
         <button onClick={handleNavState}>
           <img
             src={ArrowRight}
@@ -59,7 +59,7 @@ const SideBar = ({ links }) => {
       </Center>
 
       {/* Icon and other links */}
-      <CenterCol className="gap-16">
+      <CenterCol className="items-center gap-16">
         {navState === "collapsed" && (
           <Link to="" className=" text-4xl font-bold text-blue">
             S
@@ -74,7 +74,7 @@ const SideBar = ({ links }) => {
             />
           </Link>
         )}
-        <FlexCol className="gap-10">
+        <FlexCol className="items-center gap-10">
           {links.map((link) => (
             <LinkElement key={link.link} {...link} navState={navState} />
           ))}

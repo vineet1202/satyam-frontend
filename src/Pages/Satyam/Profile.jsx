@@ -14,7 +14,7 @@ const Profile = () => {
           src={User}
           className="aspect-auto w-10 rounded-full border-[.05rem] border-darkgrey object-contain object-top "
         />
-        <p className="text-sm tracking-wider text-darkgrey">Shelly Chopra</p>
+        <p className="text-base tracking-wider text-darkgrey">Shelly Chopra</p>
       </Flex>
     </Flex>
   );
