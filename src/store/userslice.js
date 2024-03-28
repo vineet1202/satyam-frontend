@@ -19,6 +19,6 @@ const user = createSlice({
 });
 
 // action creators
-const { init, update } = user.actions;
+export const { init, update } = user.actions;
 
 export default user.reducer;
