@@ -52,7 +52,7 @@ const Login = () => {
     loginMutate.mutate(query);
   };
 
-  if (loginMutate.isSuccess) dispatch(loginMutate.data);
+  if (loginMutate.isSuccess) dispatch(init(loginMutate.data));
 
   return (
     <FlexCol className="max-w-lg justify-center py-12 pr-12 transition-all">
