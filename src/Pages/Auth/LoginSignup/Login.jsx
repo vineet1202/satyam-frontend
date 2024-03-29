@@ -36,6 +36,11 @@ const Login = () => {
     const query = axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
       payload.data,
+      {
+        headers: {
+          dimensions: window.screen.width + window.screen.height,
+        },
+      },
     );
 
     toast.promise(query, {
