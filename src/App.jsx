@@ -5,6 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { Routes, Route } from "react-router-dom";
 import Satyam from "./Pages/Satyam/Satyam";
+import Reviewer from "./Pages/Reviewer/Reviewer";
+import Dashboard from "./Pages/Reviewer/Dashboard";
 import Auth from "./Pages/Auth/Auth";
 import { Suspense } from "react";
 
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="/*" element={<Landing />} />
           <Route path="/auth/*" element={<Auth />} />
           <Route path="/satyam/*" element={<Satyam />} />
+          <Route path="/reviewer" element={<Reviewer />} />
+          <Route path="/reviewer/dashboard/:id" element={<Dashboard />} />
         </Routes>
       </Suspense>
       <ToastContainer
