@@ -4,14 +4,12 @@ import { ToastContainer } from "react-toastify";
 import { Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
-// User Modules
 import Landing from "./Pages/Home/Landing";
 import Logo from "./Components/Logo";
 const Satyam = lazy(() => import("./Pages/Satyam/Satyam"));
 const Auth = lazy(() => import("./Pages/Auth/Auth"));
 import { CenterAbsolute } from "./Elements/Center";
 import useinitAuth from "./Hooks/useinitAuth";
-
 
 const App = () => {
   useinitAuth();
