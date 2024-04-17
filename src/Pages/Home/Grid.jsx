@@ -11,7 +11,7 @@ const GridLines = ({ lines, rotate = false }) => {
     >
       {lines.map((_, index) => (
         <div
-          className={`${rotate ? "border-b-[1px]" : "h-full border-r-[1px]"}  border-gray-400`}
+          className={`${rotate ? "border-b-[1px]" : "h-full border-r-[1px]"}  border-gray-500`}
           key={index}
         ></div>
       ))}
@@ -37,7 +37,7 @@ const Grid = () => {
           className="h-full w-full "
           style={{
             background:
-              "radial-gradient(rgba(255,255,255,.9),rgba(255,255,255,.8),rgba(255,255,255,.7),rgba(255,255,255,.8),rgba(250,255,255,.9))",
+              "radial-gradient(rgba(255,255,255,.7),rgba(255,255,255,.8),rgba(255,255,255,.9),rgba(255,255,255,.8),rgba(250,255,255,.7))",
           }}
         ></CenterAbsolute>
       </div>

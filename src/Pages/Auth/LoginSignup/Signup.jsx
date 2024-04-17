@@ -1,22 +1,26 @@
 // Third party
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 // User imports
 import { FlexCol, Flex } from "../../../Elements/Flex";
-import { Header, InputElement, Button } from "./LoginSignup";
+import InputElement from "./Components/InputElement";
+import Header from "./Components/Header";
+import Button from "./Components/Button";
 import { signupValidator } from "../../../validators/auth";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const nameRef = useRef();
   const emailRef = useRef();
   const alternateEmailRef = useRef();
   const passwordRef = useRef();
 
-  const signupMutate = useMutation({ mutationFn: (promise) => promise });
+  const mutation = useMutation({ mutationFn: (promise) => promise });
 
   const signupHandler = (event) => {
     event.preventDefault();
@@ -40,7 +44,7 @@ const Signup = () => {
 
     const query = axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/auth/signup`,
-      { fname: name, lname: "temp", type: "author", ...payload.data },
+      { name: name, type: "author", ...payload.data },
     );
 
     toast.promise(query, {
@@ -49,17 +53,17 @@ const Signup = () => {
       error: "Uhhh!! Something went wrong",
     });
 
-    signupMutate.mutate(query);
+    mutation.mutate(query);
   };
 
-  if (signupMutate.isSuccess) console.log("Success");
+  if (mutation.isSuccess);
 
   return (
-    <FlexCol className="max-w-lg justify-center py-12 pr-12 transition-all">
+    <FlexCol className=" transition-all">
       <Header
         heading="Sign Up"
         message="Have an account"
-        route="./../login"
+        route="/auth/login"
         routeTo="Login"
       />
       <FlexCol as="form" onSubmit={signupHandler}>

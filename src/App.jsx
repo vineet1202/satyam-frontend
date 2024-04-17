@@ -1,23 +1,39 @@
-import Landing from "./Pages/Home/Landing";
-
+// Third party modules
+import { Suspense, lazy } from "react";
 import { ToastContainer } from "react-toastify";
+import { Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Routes, Route } from "react-router-dom";
-import Satyam from "./Pages/Satyam/Satyam";
-import Auth from "./Pages/Auth/Auth";
-import { Suspense } from "react";
+// User Modules
+import Landing from "./Pages/Home/Landing";
+import Logo from "./Components/Logo";
+const Satyam = lazy(() => import("./Pages/Satyam/Satyam"));
+const Auth = lazy(() => import("./Pages/Auth/Auth"));
+import { CenterAbsolute } from "./Elements/Center";
+import useinitAuth from "./Hooks/useinitAuth";
+
 
 const App = () => {
+  useinitAuth();
+
   return (
     <>
-      <Suspense fallback={<h1>Page is loading</h1>}>
+      <Suspense
+        fallback={
+          <CenterAbsolute>
+            <Logo type="long" size={4} />
+          </CenterAbsolute>
+        }
+      >
         <Routes>
           <Route path="/*" element={<Landing />} />
           <Route path="/auth/*" element={<Auth />} />
           <Route path="/satyam/*" element={<Satyam />} />
+          <Route path="/reviewer" element={<Reviewer />} />
+          <Route path="/reviewer/dashboard/:id" element={<Dashboard />} />
         </Routes>
       </Suspense>
+
       <ToastContainer
         position="bottom-right"
         autoClose={5000}

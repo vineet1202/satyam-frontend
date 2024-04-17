@@ -1,18 +1,18 @@
 import { z } from "zod";
 
 export const emailValidator = z
-  .string({ required_error: "Email is required" })
+  .string({ required_error: "Missing required field : email" })
   .trim()
   .toLowerCase()
-  .email("Provide valid email");
+  .email("Please enter a valid email address.");
 
 export const nameValidator = z
   .string({
-    required_error: "Name is required",
+    required_error: "Missing required field : name",
   })
   .trim()
-  .min(1, "Name is required");
+  .min(1, "Name is too short");
 
 export const passwordValidator = z
-  .string({ required_error: "Password is required" })
-  .min(8, "Password must be atleast 8 char long");
+  .string({ required_error: "Missing required field : password" })
+  .min(8, "Password is too short. Minimum length is 8 characters.");

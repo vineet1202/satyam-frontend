@@ -6,26 +6,27 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import { FlexCol } from "../../../Elements/Flex";
-import { Button, Header, InputElement } from "./LoginSignup";
+import InputElement from "./Components/InputElement";
+import Header from "./Components/Header";
+import Button from "./Components/Button";
 import { loginValidator } from "../../../validators/auth";
-import { init } from "../../../store/userslice";
+import { update } from "../../../store/userslice";
+import { setItem } from "../../../Functions/storage";
 
 const Login = () => {
   const dispatch = useDispatch();
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const loginMutate = useMutation({ mutationFn: (promise) => promise });
+  const mutation = useMutation({ mutationFn: (promise) => promise });
 
   const loginHandler = (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    const payload = loginValidator.safeParse({
-      email,
-      password,
-    });
+    const payload = loginValidator.safeParse({ email, password });
 
     if (payload.error) {
       return Object.values(payload.error)[0].map((err) =>
@@ -49,21 +50,39 @@ const Login = () => {
       error: "Uhhh!! Something went wrong",
     });
 
-    loginMutate.mutate(query);
+    mutation.mutate(query);
   };
 
-  if (loginMutate.isSuccess) dispatch(init(loginMutate.data));
+  if (mutation.isSuccess) {
+    const data = mutation.data.data;
+    setItem("l_id", data.token);
+    setItem("current_role", data.type);
+
+    const userData = {
+      name: data.name,
+      email: data.email,
+      default_role: data.type,
+      image: data.image,
+    };
+
+    setItem("data", JSON.stringify(userData));
+    dispatch(
+      update({ token: data.token, ...userData, current_role: data.type }),
+    );
+
+    mutation.reset();
+  }
 
   return (
-    <FlexCol className="max-w-lg justify-center py-12 pr-12 transition-all">
+    <FlexCol className=" transition-all">
       <Header
         heading="Login"
         message="Create a new account"
-        route="./../signup"
+        route="/auth/signup"
         routeTo="Sign up"
       />
       <FlexCol as="form" onSubmit={loginHandler}>
-        <FlexCol className="mb-4 gap-6 transition-all">
+        <FlexCol className="mb-8 gap-6 transition-all md:mb-4">
           <InputElement
             inputOptions={{
               type: "email",
@@ -86,7 +105,10 @@ const Login = () => {
             error_message="Password must be atleast 8 char long"
           />
         </FlexCol>
-        <Link to="./../forgotpassword" className="mb-6 self-end text-blue">
+        <Link
+          to="./../forgotpassword"
+          className="mb-4 self-end text-lg text-blue md:text-base"
+        >
           Forgot Password ?
         </Link>
         <Button>Login</Button>

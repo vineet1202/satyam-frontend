@@ -1,5 +1,4 @@
 import { Flex } from "../../Elements/Flex";
-import User from "./../../assets/img/user.png";
 import NotificationBell from "./../../assets/img/icons/notification.svg";
 
 const Profile = () => {
@@ -11,7 +10,7 @@ const Profile = () => {
       </div>
       <Flex className="items-center gap-4">
         <img
-          src={User}
+          // src={User}
           className="aspect-auto w-10 rounded-full border-[.05rem] border-darkgrey object-contain object-top "
         />
         <p className="text-base tracking-wider text-darkgrey">Shelly Chopra</p>
