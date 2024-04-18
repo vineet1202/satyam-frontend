@@ -7,25 +7,19 @@ import "react-toastify/dist/ReactToastify.css";
 import Logo from "./Components/Logo";
 import useinitAuth from "./Hooks/useinitAuth";
 import { CenterAbsolute } from "./Elements/Center";
+import Loader from "./Components/Loader";
 const Landing = lazy(() => import("./Pages/Home/Landing"));
 const Satyam = lazy(() => import("./Pages/Satyam/Satyam"));
 const Auth = lazy(() => import("./Pages/Auth/Auth"));
 const Reviewer = lazy(() => import("./Pages/Reviewer/Reviewer"));
 const Dashboard = lazy(() => import("./Pages/Reviewer/Dashboard"));
 
-
 const App = () => {
   useinitAuth();
 
   return (
     <>
-      <Suspense
-        fallback={
-          <CenterAbsolute>
-            <Logo type="long" size={4} />
-          </CenterAbsolute>
-        }
-      >
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/*" element={<Landing />} />
           <Route path="/auth/*" element={<Auth />} />

@@ -12,6 +12,7 @@ import Button from "./Components/Button";
 import { loginValidator } from "../../../validators/auth";
 import { update } from "../../../store/userslice";
 import { setItem } from "../../../Functions/storage";
+import zodErrorThrow from "../../../Functions/zodErrorThrow";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -28,11 +29,7 @@ const Login = () => {
 
     const payload = loginValidator.safeParse({ email, password });
 
-    if (payload.error) {
-      return Object.values(payload.error)[0].map((err) =>
-        toast.error(err.message),
-      );
-    }
+    if (zodErrorThrow(payload.error)) return;
 
     const query = axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/auth/login`,

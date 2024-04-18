@@ -1,11 +1,11 @@
 // Third party modules
 import PropTypes from "prop-types";
 
-// text-[6rem] text-[4rem] text-[3rem] text-[2.75rem] text-[2.5rem] text-[4.5rem]
+// text-[6rem] text-[4rem] text-[3rem] text-[2.75rem] text-[2.5rem] text-[4.5rem] text-[5rem]
 const Logo = ({ size = 3, type = "long", className }) => {
   return (
     <h1
-      className={`leading-3 text-[${size}rem] font-extrabold tracking-wide text-[#333] ${className}`}
+      className={` text-[${size}rem] font-extrabold tracking-wide text-[#333] ${className}`}
     >
       <span className=" xms:text-[110%] text-[80%] text-blue sm:text-[120%]">
         S
