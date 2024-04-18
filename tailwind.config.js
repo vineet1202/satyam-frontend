@@ -20,9 +20,12 @@ export default {
           },
         },
         scaleUp: {
-          "100%": {
-            transform: "scale(1.1,2)",
-          },
+          "0%": { transform: "scale(0)" },
+          "80%": { transform: "scale(1.2)" },
+          "100%": { transform: "scale(1)" },
+        },
+        spinCustom: {
+          "100%": { transform: "translate(-50%,-50%) rotate(360deg)" },
         },
       },
       screens: {

@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 const LoginSignup = lazy(() => import("./LoginSignup/LoginSignup"));
 const Login = lazy(() => import("./LoginSignup/Login"));
 const Signup = lazy(() => import("./LoginSignup/Signup"));
+const ForgotPassword = lazy(() => import("./ForgotPassword"));
+const VerifyEmail = lazy(() => import("./VerifyEmail"));
 import getRoute from "../../Functions/getRoute";
 
 const Auth = () => {
@@ -25,9 +27,11 @@ const Auth = () => {
   return (
     <Routes>
       <Route element={<LoginSignup />}>
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Route>
+      <Route path="/forgot" element={<ForgotPassword />} />
+      <Route path="/verify" element={<VerifyEmail />} />
     </Routes>
   );
 };
