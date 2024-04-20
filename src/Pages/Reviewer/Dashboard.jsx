@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { FaDownload } from "react-icons/fa";
-import PieChart from '../Satyam/Landing/PieChart';
+import PieChart from '../Satyam/Dashboard/PieChart';
 import BarChart from './BarChart';
 import list from './list';
 import { useParams } from 'react-router-dom';

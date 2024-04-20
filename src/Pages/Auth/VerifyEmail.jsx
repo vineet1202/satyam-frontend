@@ -21,13 +21,11 @@ const VerifyEmail = () => {
   const [status, setStatus] = useState("pending");
   const [retries, setRetries] = useState(1);
   const [redirect, setRedirect] = useState(10);
-  const [message, setMessage] = useState(
-    "We're just confirming your email address. This shouldn't take long.",
-  );
+  const [message, setMessage] = useState("We're just confirming your email address. This shouldn't take long.");
 
   const verifyMutate = useMutation({
     mutationFn: () =>
-      axios.put(`${import.meta.env.VITE_BACKEND_URL}/auth/confirm`, {
+      axios.put(`${import.meta.env.VITE_BACKEND_URL}/auth/confirm`, undefined, {
         headers: { token },
       }),
     mutationKey: `verify/${token}`,
@@ -35,7 +33,7 @@ const VerifyEmail = () => {
 
   const refetchMutate = useMutation({
     mutationFn: () =>
-      axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/confirm/reset`, {
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/confirm/reset`, undefined, {
         headers: { token },
       }),
     mutationKey: `refetch/${token}`,
@@ -45,9 +43,7 @@ const VerifyEmail = () => {
     if (token) verifyMutate.mutate();
     else {
       setStatus("error");
-      setMessage(
-        "The link seems to be broken. Could you please double-check it?",
-      );
+      setMessage("The link seems to be broken. Could you please double-check it?");
     }
   }, []);
 
@@ -62,6 +58,7 @@ const VerifyEmail = () => {
 
   // Error State
   if (verifyMutate.isError) {
+    console.log("Executed", status);
     const error = verifyMutate.error;
     let message =
       "We're experiencing technical difficulties. We apologize for the inconvenience. Please try again soon";
@@ -70,13 +67,11 @@ const VerifyEmail = () => {
     if (error?.response?.data) {
       const statusCode = verifyMutate.error.response.status;
       if (statusCode === 401) {
-        message =
-          "Oops! Looks like the verification link expired. Don't worry, we've sent a fresh one to your email.";
+        message = "Oops! Looks like the verification link expired. Don't worry, we've sent a fresh one to your email.";
         curStatus = "partial-success";
         refetchMutate.mutate();
       } else if (statusCode === 404) {
-        message =
-          "The link seems to be broken. Could you please double-check it?";
+        message = "The link seems to be broken. Could you please double-check it?";
       }
     } else {
       if (retries > 0) {
@@ -86,9 +81,13 @@ const VerifyEmail = () => {
       }
     }
 
+    // console.log(curStatus);
+
     setMessage(message);
     setStatus(curStatus);
   }
+
+  // console.log(status);
 
   if (redirect === 1) navigate("/auth/login", { replace: true });
 
@@ -100,14 +99,9 @@ const VerifyEmail = () => {
 
         {/* TODO update the font related to it */}
         <div className="px-4 text-center xsm:px-6  sm:px-8 md:px-12">
-          <h1 className="mb-4 font-mono text-base xsm:text-lg sm:text-xl">
-            {message}
-          </h1>
+          <h1 className="mb-4 font-mono text-base xsm:text-lg sm:text-xl">{message}</h1>
           {status === "success" && (
-            <Link
-              to="/auth/login"
-              className=" text-sm tracking-wider text-blue xsm:text-base sm:text-lg "
-            >
+            <Link to="/auth/login" className=" text-sm tracking-wider text-blue xsm:text-base sm:text-lg ">
               Proceed to login (Redirecting in {redirect}..)
             </Link>
           )}

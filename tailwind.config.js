@@ -32,10 +32,11 @@ export default {
             left: "100%",
             transform: "translateX(-75%) scale(.5,1) ",
           },
-          // "100%": {
-          //   left: "0",
-          //   transform: "scale(1)",
-          // },
+        },
+        slideRight: {
+          "100%": {
+            left: "0%",
+          },
         },
       },
       screens: {

@@ -31,15 +31,13 @@ const Login = () => {
 
     if (zodErrorThrow(payload.error)) return;
 
-    const query = axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
-      payload.data,
-      { headers: { dimensions: window.screen.width + window.screen.height } },
-    );
+    const query = axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, payload.data, {
+      headers: { dimensions: window.screen.width + window.screen.height },
+    });
 
     toast.promise(query, {
       pending: "Logging in",
-      success: "Logged in",
+      // success: "Logged in",
       error: {
         render({ data }) {
           if (data?.response?.data) {
@@ -71,9 +69,7 @@ const Login = () => {
     };
 
     setItem("info", JSON.stringify(userData));
-    dispatch(
-      update({ token: data.token, ...userData, current_role: data.type }),
-    );
+    dispatch(update({ token: data.token, ...userData, current_role: data.type }));
 
     mutation.reset();
   }
@@ -83,12 +79,7 @@ const Login = () => {
 
   return (
     <FlexCol className=" transition-all">
-      <Header
-        heading="Login"
-        message="Create a new account"
-        route="/auth/signup"
-        routeTo="Sign up"
-      />
+      <Header heading="Login" message="Create a new account" route="/auth/signup" routeTo="Sign up" />
       <FlexCol as="form" onSubmit={loginHandler}>
         <FlexCol className="mb-8 gap-6 transition-all md:mb-4">
           <InputElement
@@ -113,10 +104,7 @@ const Login = () => {
             error_message="Password must be atleast 8 char long"
           />
         </FlexCol>
-        <Link
-          to="./../forgotpassword"
-          className="mb-4 self-end text-lg text-blue md:text-base"
-        >
+        <Link to="./../forgotpassword" className="mb-4 self-end text-lg text-blue md:text-base">
           Forgot Password ?
         </Link>
         <Button>Login</Button>
