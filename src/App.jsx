@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import useinitAuth from "./Hooks/useinitAuth";
 import Loader from "./Components/Loader";
+import Profile from "./Pages/Reviewer/Profile";
 const Landing = lazy(() => import("./Pages/Home/Landing"));
 const Satyam = lazy(() => import("./Pages/Satyam/Satyam"));
 const Auth = lazy(() => import("./Pages/Auth/Auth"));
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/satyam/*" element={<Satyam />} />
           <Route path="/reviewer" element={<Reviewer />} />
           <Route path="/reviewer/dashboard/:id" element={<Dashboard />} />
+          <Route path="/reviewer/profile" element={<Profile />} />
         </Routes>
       </Suspense>
 
