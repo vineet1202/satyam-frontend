@@ -7,6 +7,8 @@ import { Routes, Route } from "react-router-dom";
 import Satyam from "./Pages/Satyam/Satyam";
 import Auth from "./Pages/Auth/Auth";
 import { Suspense } from "react";
+import Upload from "./Pages/Author/Upload";
+import Profile from "./Pages/Author/Profile";
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="/*" element={<Landing />} />
           <Route path="/auth/*" element={<Auth />} />
           <Route path="/satyam/*" element={<Satyam />} />
+          <Route path="/author/upload/*" element={<Upload />} />
+          <Route path="/author/*" element={<Profile />} />
         </Routes>
       </Suspense>
       <ToastContainer
