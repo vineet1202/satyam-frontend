@@ -8,6 +8,7 @@ import { IoClose } from "react-icons/io5";
 import Logo from "./Logo";
 import { FlexCol } from "../Elements/Flex";
 import useDimensions from "../Hooks/useDimensions";
+import { useEffect } from "react";
 
 const LinkElement = ({ link, Icon, title, navIntState, onClickHandler, className }) => {
   return (
@@ -19,8 +20,14 @@ const LinkElement = ({ link, Icon, title, navIntState, onClickHandler, className
 };
 
 const SideBar = ({ links, navState: navExtState, navStateToggleHandler: handleNavExtStateToggle }) => {
-  const isMobile = useDimensions().width < 768;
-  const [navIntState, setNavIntState] = useState(isMobile ? "shown" : "hidden");
+  const dimensions = useDimensions();
+  const [navIntState, setNavIntState] = useState("hidden");
+
+  const isMobile = dimensions.width < 768;
+
+  useEffect(() => {
+    setNavIntState(isMobile ? "shown" : "hidden");
+  }, [dimensions]);
 
   const handleNavIntStateToggle = () => setNavIntState((state) => (state === "shown" ? "hidden" : "shown"));
 
