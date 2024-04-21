@@ -54,53 +54,57 @@ const links = [
   },
 ];
 
-const getScrollbarWidth = () => {
-  return window.innerWidth - document.documentElement.clientWidth;
-};
+function getScrollbarWidth() {
+  return document.documentElement.clientHeight < document.documentElement.scrollHeight
+    ? `${window.innerWidth - document.documentElement.clientWidth}px - 20px`
+    : "0px";
+}
 
 const Main = styled.main.attrs({
-  className: "md:no-scrollbar relative  md:absolute md:left-full md:top-0 md:h-full  md:overflow-y-scroll",
+  className: "md:no-scrollbar  bg-[#f9faff] relative md:absolute md:left-full md:top-0 md:h-full  md:overflow-y-scroll",
 })`
   @media screen and (min-width: 768px) {
-    width: calc(100vw - 100% - ${getScrollbarWidth()}px - 20px);
+    width: calc(100vw - 100%);
   }
 `;
 
 const Satyam = () => {
-  // const user = useSelector((state) => state.user);
-  // const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!user.token || !user.name || !user.email || !user?.default_role?.startsWith("satyam")) {
-  //     const redirect = window.location.pathname;
-  //     navigate(`/auth/login?redirect=${redirect}`);
-  //     toast.error("Please login first");
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (!user.token || !user.name || !user.email || !user?.default_role?.startsWith("satyam")) {
+      const redirect = window.location.pathname;
+      navigate(`/auth/login?redirect=${redirect}`);
+      toast.error("Please login first");
+    }
+  }, [user]);
 
   const [navState, setNavState] = useState("collapsed");
 
   const handleNavStateToggle = () => setNavState((state) => (state === "collapsed" ? "open" : "collapsed"));
 
   return (
-    <div className="relative block bg-[#f6f7f8] md:inline-block ">
-      <SideBar links={links} navState={navState} navStateToggleHandler={handleNavStateToggle} />
-      <Main>
-        <Flex className="items-center justify-stretch border-b-[1px] border-gray-300 py-4">
-          <div
-            className="border-r-[1px] border-r-gray-300 px-2 text-3xl xsm:px-3 sm:px-4 md:hidden"
-            onClick={handleNavStateToggle}>
-            <MenuIcon />
-          </div>
-          <Searchbar />
-        </Flex>
+    <div className="overflow-x-hidden">
+      <div className="relative block  md:inline-block ">
+        <SideBar links={links} navState={navState} navStateToggleHandler={handleNavStateToggle} />
+        <Main>
+          <Flex className="items-center justify-stretch border-b-[1px] border-gray-300 bg-white py-3">
+            <div
+              className="border-r-[1px] border-r-gray-300 px-2 text-3xl xsm:px-3 sm:px-4 md:hidden"
+              onClick={handleNavStateToggle}>
+              <MenuIcon />
+            </div>
+            <Searchbar />
+          </Flex>
 
-        <Routes>
-          <Route index element={<Dashboard />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="manageusers" element={<ManageUsers />} />
-        </Routes>
-      </Main>
+          <Routes>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="manageusers" element={<ManageUsers />} />
+          </Routes>
+        </Main>
+      </div>
     </div>
   );
 };
