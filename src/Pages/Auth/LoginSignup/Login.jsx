@@ -6,13 +6,13 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import { FlexCol } from "../../../Elements/Flex";
-import Input from "./Components/Input";
 import Header from "./Components/Header";
 import Button from "./Components/Button";
 import { loginValidator } from "../../../validators/auth";
 import { update } from "../../../store/userslice";
 import { setItem } from "../../../Functions/storage";
 import zodErrorThrow from "../../../Functions/zodErrorThrow";
+import Input from "../../../Components/Input";
 
 const Login = () => {
   const dispatch = useDispatch();

@@ -7,10 +7,10 @@ import { toast } from "react-toastify";
 
 // User imports
 import { FlexCol, Flex } from "../../../Elements/Flex";
-import Input from "./Components/Input";
 import Header from "./Components/Header";
 import Button from "./Components/Button";
 import { signupValidator } from "../../../validators/auth";
+import Input from "../../../Components/Input";
 
 const Signup = () => {
   const navigate = useNavigate();
