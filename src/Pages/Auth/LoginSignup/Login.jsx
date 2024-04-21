@@ -6,13 +6,13 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import { FlexCol } from "../../../Elements/Flex";
-import InputElement from "./Components/InputElement";
 import Header from "./Components/Header";
 import Button from "./Components/Button";
 import { loginValidator } from "../../../validators/auth";
 import { update } from "../../../store/userslice";
 import { setItem } from "../../../Functions/storage";
 import zodErrorThrow from "../../../Functions/zodErrorThrow";
+import Input from "../../../Components/Input";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -82,7 +82,7 @@ const Login = () => {
       <Header heading="Login" message="Create a new account" route="/auth/signup" routeTo="Sign up" />
       <FlexCol as="form" onSubmit={loginHandler}>
         <FlexCol className="mb-8 gap-6 transition-all md:mb-4">
-          <InputElement
+          <Input
             inputOptions={{
               type: "email",
               placeholder: "sahilaggarwal2004@gmail.com",
@@ -92,7 +92,7 @@ const Login = () => {
             label="Email"
             error_message="Please provide a valid email address."
           />
-          <InputElement
+          <Input
             inputOptions={{
               type: "password",
               placeholder: "••••••••",

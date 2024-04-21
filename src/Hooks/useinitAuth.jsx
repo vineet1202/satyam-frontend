@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 // User Module
 import { update } from "../store/userslice";
-import { getItem } from "../Functions/storage";
+import { getItem } from "../Functions/storage.js";
 
 // info = {
 //   name: "Vipul Goel",
