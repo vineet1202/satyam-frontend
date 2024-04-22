@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { AiOutlineEye, AiFillEyeInvisible } from "react-icons/ai";
-import { FlexCol } from "../../../../Elements/Flex";
+import { FlexCol } from "../Elements/Flex";
 import { useState } from "react";
 
 const PasswordIcon = styled.svg.attrs({
@@ -9,25 +9,18 @@ const PasswordIcon = styled.svg.attrs({
     "absolute right-[1%] top-[37%] -translate-x-1/2 -translate-y-1/2 text-2xl text-gray-600 peer-placeholder-shown:top-[50%] peer-valid:top-[50%]",
 })``;
 
-const InputElement = ({ label, error_message, ref, inputOptions }) => {
+const Input = ({ label, error_message, inputOptions }) => {
   const [inputType, setInputType] = useState(inputOptions.type);
 
-  const inputTypeToggleHandler = () =>
-    setInputType((inputType) =>
-      inputType === "password" ? "text" : "password",
-    );
+  const inputTypeToggleHandler = () => setInputType((inputType) => (inputType === "password" ? "text" : "password"));
 
   return (
     <FlexCol className="gap-2">
-      <label
-        htmlFor={label.toLowerCase()}
-        className="text-lg text-[#555555] transition-all md:text-base"
-      >
+      <label htmlFor={label.toLowerCase()} className="text-lg text-[#555555] transition-all md:text-base">
         {label}
       </label>
       <div className="relative">
         <input
-          ref={ref}
           {...inputOptions}
           type={inputType}
           id={label.toLowerCase()}
@@ -37,10 +30,7 @@ const InputElement = ({ label, error_message, ref, inputOptions }) => {
           (inputType === "password" ? (
             <PasswordIcon as={AiOutlineEye} onClick={inputTypeToggleHandler} />
           ) : (
-            <PasswordIcon
-              as={AiFillEyeInvisible}
-              onClick={inputTypeToggleHandler}
-            />
+            <PasswordIcon as={AiFillEyeInvisible} onClick={inputTypeToggleHandler} />
           ))}
         <p className=" text-sm transition-all peer-placeholder-shown:hidden peer-valid:hidden peer-invalid:text-red-500">
           {error_message}
@@ -50,4 +40,4 @@ const InputElement = ({ label, error_message, ref, inputOptions }) => {
   );
 };
 
-export default InputElement;
+export default Input;

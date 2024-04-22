@@ -1,47 +1,110 @@
-import { Routes, Route } from "react-router-dom";
+// Third party
+import { lazy, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
+import { LuLayoutDashboard as DashboardIcon } from "react-icons/lu";
+import { LuNewspaper as CallPaperIcon } from "react-icons/lu";
+import { TfiAnnouncement as AnnouncmenntIcon } from "react-icons/tfi";
+import { CgWebsite as ManageWebsiteIcon } from "react-icons/cg";
+import { BsJournals as JournalsIcon } from "react-icons/bs";
+import { LuUsers as UsersIcon } from "react-icons/lu";
+import { HiOutlineMenuAlt2 as MenuIcon } from "react-icons/hi";
+
+// User
 import SideBar from "../../Components/SideBar";
-import Manage from "./../../assets/img/icons/satyam_sidebar/manage.svg";
-import Journals from "./../../assets/img/icons/satyam_sidebar/journals.svg";
-import Users from "./../../assets/img/icons/satyam_sidebar/users.svg";
-import SearchBar from "./SearchBar";
-import Profile from "./Profile";
+import Searchbar from "./Searchbar";
 import { Flex } from "../../Elements/Flex";
-import SatyamLanding from "./Landing/SatyamLanding";
-import ManageUsers from "./ManageUsers/ManageUsers";
+import { useEffect } from "react";
+const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
+const ManageUsers = lazy(() => import("./ManageUsers/ManageUsers"));
 
 const links = [
   {
-    icon: Manage,
-    link: "manage",
-    name: "Manage Website",
+    Icon: DashboardIcon,
+    link: "/satyam/dashboard",
+    title: "Dashboard",
   },
   {
-    icon: Journals,
-    link: "jorunals",
-    name: "Uploaded Journals",
+    Icon: ManageWebsiteIcon,
+    link: "/satyam/managewebsite",
+    title: "Manage Website",
   },
   {
-    icon: Users,
-    link: "users",
-    name: "Manage Users",
+    Icon: JournalsIcon,
+    link: "/satyam/journals",
+    title: "Journals",
+  },
+  {
+    Icon: CallPaperIcon,
+    link: "/satyam/callpaper",
+    title: "Call for paper",
+  },
+  {
+    Icon: AnnouncmenntIcon,
+    link: "/satyam/announcement",
+    title: "Announcement",
+  },
+  {
+    Icon: UsersIcon,
+    link: "/satyam/manageusers",
+    title: "Manage Users",
   },
 ];
 
+function getScrollbarWidth() {
+  return document.documentElement.clientHeight < document.documentElement.scrollHeight
+    ? `${window.innerWidth - document.documentElement.clientWidth}px - 20px`
+    : "0px";
+}
+
+const Main = styled.main.attrs({
+  className: "md:no-scrollbar  bg-[#f9faff] relative md:absolute md:left-full md:top-0 md:h-full  md:overflow-y-scroll",
+})`
+  @media screen and (min-width: 768px) {
+    width: calc(100vw - 100%);
+  }
+`;
+
 const Satyam = () => {
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user.token || !user.name || !user.email || !user?.default_role?.startsWith("satyam")) {
+      const redirect = window.location.pathname;
+      navigate(`/auth/login?redirect=${redirect}`);
+      toast.error("Please login first");
+    }
+  }, [user]);
+
+  const [navState, setNavState] = useState("collapsed");
+
+  const handleNavStateToggle = () => setNavState((state) => (state === "collapsed" ? "open" : "collapsed"));
+
   return (
-    <div className="grid grid-cols-[auto_auto] gap-10 bg-[#f6f6f6] p-4">
-      <SideBar links={links} />
-      <main>
-        <Flex className="mb-6 items-center justify-between rounded-2xl bg-white px-6 py-3 shadow-[0_0_100px_2px_rgba(0,0,0,.2)]">
-          <SearchBar />
-          <Profile />
-        </Flex>
-        <Routes>
-          <Route index element={<SatyamLanding />}></Route>
-          <Route path="users" element={<ManageUsers />}></Route>
-          <Route path="manage" element={<h1>This is manage page</h1>}></Route>
-        </Routes>
-      </main>
+    <div className="overflow-x-hidden">
+      <div className="relative block  md:inline-block ">
+        <SideBar links={links} navState={navState} navStateToggleHandler={handleNavStateToggle} />
+        <Main>
+          <Flex className="items-center justify-stretch border-b-[1px] border-gray-300 bg-white py-3">
+            <div
+              className="border-r-[1px] border-r-gray-300 px-2 text-3xl xsm:px-3 sm:px-4 md:hidden"
+              onClick={handleNavStateToggle}>
+              <MenuIcon />
+            </div>
+            <Searchbar />
+          </Flex>
+
+          <Routes>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="manageusers" element={<ManageUsers />} />
+          </Routes>
+        </Main>
+      </div>
     </div>
   );
 };

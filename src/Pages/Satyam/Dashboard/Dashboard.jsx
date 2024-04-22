@@ -3,7 +3,7 @@ import Stats from "./Stats";
 import { FlexCol } from "../../../Elements/Flex";
 import DoughnutChart from "./PieChart";
 
-const SatyamLanding = () => {
+const Dashboard = () => {
   const greeting = useGreeting();
   const name = "Shelly Chopra";
 
@@ -23,4 +23,4 @@ const SatyamLanding = () => {
   );
 };
 
-export default SatyamLanding;
+export default Dashboard;

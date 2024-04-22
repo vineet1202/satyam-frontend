@@ -6,13 +6,13 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import { FlexCol } from "../../../Elements/Flex";
-import InputElement from "./Components/InputElement";
 import Header from "./Components/Header";
 import Button from "./Components/Button";
 import { loginValidator } from "../../../validators/auth";
 import { update } from "../../../store/userslice";
 import { setItem } from "../../../Functions/storage";
 import zodErrorThrow from "../../../Functions/zodErrorThrow";
+import Input from "../../../Components/Input";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -34,12 +34,14 @@ const Login = () => {
     const query = axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
       payload.data,
-      { headers: { dimensions: window.screen.width + window.screen.height } }
+      {
+        headers: { dimensions: window.screen.width + window.screen.height },
+      }
     );
 
     toast.promise(query, {
       pending: "Logging in",
-      success: "Logged in",
+      // success: "Logged in",
       error: {
         render({ data }) {
           console.log(response);
@@ -92,7 +94,7 @@ const Login = () => {
       />
       <FlexCol as="form" onSubmit={loginHandler}>
         <FlexCol className="mb-8 gap-6 transition-all md:mb-4">
-          <InputElement
+          <Input
             inputOptions={{
               type: "email",
               placeholder: "sahilaggarwal2004@gmail.com",
@@ -102,7 +104,7 @@ const Login = () => {
             label="Email"
             error_message="Please provide a valid email address."
           />
-          <InputElement
+          <Input
             inputOptions={{
               type: "password",
               placeholder: "••••••••",

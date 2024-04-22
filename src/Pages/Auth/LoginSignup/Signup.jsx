@@ -7,10 +7,10 @@ import { toast } from "react-toastify";
 
 // User imports
 import { FlexCol, Flex } from "../../../Elements/Flex";
-import InputElement from "./Components/InputElement";
 import Header from "./Components/Header";
 import Button from "./Components/Button";
 import { signupValidator } from "../../../validators/auth";
+import Input from "../../../Components/Input";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -37,15 +37,14 @@ const Signup = () => {
     });
 
     if (payload.error) {
-      return Object.values(payload.error)[0].map((err) =>
-        toast.error(err.message),
-      );
+      return Object.values(payload.error)[0].map((err) => toast.error(err.message));
     }
 
-    const query = axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/auth/signup`,
-      { name: name, type: "author", ...payload.data },
-    );
+    const query = axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, {
+      name: name,
+      type: "author",
+      ...payload.data,
+    });
 
     toast.promise(query, {
       pending: "Signing up",
@@ -60,15 +59,10 @@ const Signup = () => {
 
   return (
     <FlexCol className=" transition-all">
-      <Header
-        heading="Sign Up"
-        message="Have an account"
-        route="/auth/login"
-        routeTo="Login"
-      />
+      <Header heading="Sign Up" message="Have an account" route="/auth/login" routeTo="Login" />
       <FlexCol as="form" onSubmit={signupHandler}>
         <FlexCol className="mb-4 gap-4 transition-all">
-          <InputElement
+          <Input
             inputOptions={{
               type: "text",
               placeholder: "Sahil aggarwal",
@@ -78,16 +72,17 @@ const Signup = () => {
             label="Name"
             error_message="Please provide the name."
           />
-          <InputElement
+          <Input
             inputOptions={{
               type: "email",
               placeholder: "sahilaggarwal2004@gmail.com",
               ref: emailRef,
+              required: true,
             }}
             label="Email"
             error_message="Please provide a valid email address."
-          />{" "}
-          <InputElement
+          />
+          <Input
             inputOptions={{
               type: "email",
               placeholder: "sahilaggarwal2004@gmail.com",
@@ -96,11 +91,12 @@ const Signup = () => {
             label="Alternate Email"
             error_message="Please provide a valid email address."
           />
-          <InputElement
+          <Input
             inputOptions={{
               type: "password",
               placeholder: "••••••••",
               minLength: 8,
+              required: true,
               ref: passwordRef,
             }}
             label="Password"
