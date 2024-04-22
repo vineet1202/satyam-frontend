@@ -1,16 +1,21 @@
-import React, { useState } from "react";
-import { Button } from "../Auth/LoginSignup/LoginSignup";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import Button from "./Button";
+import axios from "axios";
+
 import styles from "./Author.module.css";
 
 const PaperDetails = ({
   nextStep,
   handleChange,
   formData,
+  setFormData,
   prevStep,
   tags,
   setTags,
+  handleFile,
 }) => {
-  const { abstract, title } = formData;
+  const { abstract, title, upload, pdf } = formData;
 
   const [input, setInput] = useState("");
 
@@ -48,9 +53,54 @@ const PaperDetails = ({
   const deleteTag = (index) => {
     setTags((prevState) => prevState.filter((tag, i) => i !== index));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     nextStep();
+  };
+
+  const checkData = () => {
+    if (
+      formData.abstract !== "" &&
+      formData.title !== "" &&
+      formData.pdf !== ""
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const token = useSelector((state) => state.user.token);
+
+  const save = async () => {
+    try {
+      const updatedFormData = {
+        ...formData,
+        keywords: tags,
+        uploadFile: "new",
+      };
+      setFormData(updatedFormData);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/journal/draft`,
+        updatedFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            token: `${token}`,
+            dimensions: window.screen.width + window.screen.height,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        nextStep();
+      } else {
+        console.error(response.data.error || "Unknown error occurred");
+      }
+    } catch (error) {
+      console.error("Error:", error.response);
+    }
   };
 
   return (
@@ -88,6 +138,8 @@ const PaperDetails = ({
             id="myfile"
             name="myfile"
             className="mb-2 border w-60"
+            accept=".pdf"
+            onChange={handleFile}
           />
           <button className="bg-red-500 shadow text-white px-2 py-1 rounded-lg mx-2 hover:bg-red-400">
             Delete
@@ -122,9 +174,21 @@ const PaperDetails = ({
 
       <div className="border-t-2 border-slate-200 py-4">
         <Button onClick={prevStep}>Back</Button>
-        <Button className="float-end" onClick={handleSubmit}>
-          Continue
-        </Button>
+
+        {checkData() ? (
+          <>
+            <Button onClick={handleSubmit} className="float-end">
+              Continue
+            </Button>
+            <Button onClick={save} className="float-end mb-8 mr-4">
+              Save as Draft
+            </Button>
+          </>
+        ) : (
+          <button className={`${styles.noBtn} float-end`} disabled>
+            Continue
+          </button>
+        )}
       </div>
     </div>
   );

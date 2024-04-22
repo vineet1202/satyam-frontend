@@ -1,42 +1,48 @@
 import React, { useState } from "react";
-import { Button } from "../Auth/LoginSignup/LoginSignup";
+import Button from "./Button";
+
 import styles from "./Author.module.css";
 
 const ReviewerDetails = ({
   nextStep,
   handleChange,
+  handleReviewers,
   formData,
   prevStep,
   setFormData,
 }) => {
-  console.log(formData);
-  const { revName, revEmail } = formData;
+  const { reviewers } = formData;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     nextStep();
   };
 
-  const [reviewers, setReviewers] = useState([]);
+  const [allReviewers, setReviewers] = useState([]);
 
   const addReviewer = (e) => {
     e.preventDefault();
     const newReviewer = {
-      revName: formData.revName,
-      revEmail: formData.revEmail,
+      name: formData.reviewers.name,
+      email: formData.reviewers.email,
     };
-    setReviewers([...reviewers, newReviewer]);
-    setFormData({ revName: "", revEmail: "" });
+    setReviewers([...allReviewers, newReviewer]);
+
+    setFormData({
+      reviewers: {
+        name: "",
+        email: "",
+      },
+    });
   };
 
   const checkData = () => {
-    if (formData.revName !== "" && formData.revEmail !== "") {
+    if (formData.reviewers.name !== "" && formData.reviewers.email !== "") {
       return true;
     } else {
       return false;
     }
   };
-  console.log(reviewers.length);
 
   return (
     <div className="max-w-[1024px] mx-auto mt-16 ">
@@ -47,26 +53,26 @@ const ReviewerDetails = ({
         </label>
         <input
           type="text"
-          name="revName"
-          value={revName}
+          name="name"
+          value={reviewers.name}
           placeholder="Name"
           className={styles.input}
-          onChange={handleChange}
+          onChange={handleReviewers}
         />
         <label for="name" className="text-xl">
           Email
         </label>
         <input
           type="text"
-          name="revEmail"
-          value={revEmail}
+          name="email"
+          value={reviewers.email}
           placeholder="someone@email.com"
           className={styles.input}
-          onChange={handleChange}
+          onChange={handleReviewers}
         />
       </div>
 
-      {reviewers.length > 0 ? (
+      {allReviewers.length > 0 ? (
         <div className="p-4 my-12 w-3/5">
           <h1 className="text-2xl text-blue font-bold">Reviewers</h1>
           <table className="w-full my-4 text-lg border-separate border-spacing-y-2">
@@ -77,13 +83,13 @@ const ReviewerDetails = ({
               </tr>
             </thead>
             <tbody>
-              {reviewers.map((reviewer) => (
+              {allReviewers.map((reviewer) => (
                 <tr
-                  key={reviewer.revName}
+                  key={reviewer.name}
                   className="odd:bg-slate-100 border  text-center"
                 >
-                  <td>{reviewer.revName}</td>
-                  <td>{reviewer.revEmail}</td>
+                  <td>{reviewer.name}</td>
+                  <td>{reviewer.email}</td>
                 </tr>
               ))}
             </tbody>
@@ -104,7 +110,7 @@ const ReviewerDetails = ({
             Add Reviewer
           </button>
         )}
-        {reviewers.length > 0 ? (
+        {allReviewers.length > 0 ? (
           <>
             {" "}
             <Button className="float-end mb-8" onClick={handleSubmit}>

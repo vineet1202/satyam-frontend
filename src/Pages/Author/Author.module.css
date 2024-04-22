@@ -1,39 +1,12 @@
 @tailwind base;
 @tailwind components;
 
-/* .input {
-  @apply border border-slate-300 rounded-sm text-xl p-2 my-2 w-3/5;
-} */
 .input {
   @apply border border-slate-300 rounded-sm text-xl p-2 my-2 w-4/5;
 }
 
-.cancelBtn {
-  @apply border border-grey px-3 py-2 text-lg rounded-sm hover:bg-blue hover:text-white;
-}
-
-.saveBtn {
-  @apply border border-grey px-3 py-2 text-lg rounded-sm hover:bg-blue hover:text-white;
-}
-
-.notFilled {
-  @apply bg-grey text-white cursor-not-allowed;
-}
-
-.notFilled:hover {
-  @apply bg-grey text-white;
-}
-
 .noBtn {
   @apply text-white text-xl bg-grey text-center py-3 px-4 rounded-3xl shadow hover:cursor-not-allowed;
-}
-
-.label {
-  @apply text-xl;
-}
-
-.details {
-  @apply bg-sky-300  py-1 px-2 text-xl rounded w-full mx-3;
 }
 
 @tailwind utilities;

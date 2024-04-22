@@ -1,20 +1,18 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 
 const useDimensions = () => {
   const [dimensions, setDimensions] = useState({ width: 1000, height: 500 });
 
+  const dimensionsSetter = useCallback(() => {
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+  }, [setDimensions]);
+
   useEffect(() => {
-    if (window) {
-      setDimensions({ height: window.innerHeight, width: window.innerWidth });
-      window.addEventListener("resize", () => {
-        setDimensions({ height: window.innerHeight, width: window.innerWidth });
-      });
-      window.addEventListener("rotate", () => {
-        setDimensions({ height: window.innerHeight, width: window.innerWidth });
-      });
-    }
+    dimensionsSetter();
   }, []);
+
+  window.addEventListener("resize", dimensionsSetter);
+  window.addEventListener("rotate", dimensionsSetter);
 
   return dimensions;
 };

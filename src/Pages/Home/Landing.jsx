@@ -16,10 +16,10 @@ const Landing = () => {
       <div className="relative mb-20 pb-12">
         <Grid />
 
-        <div className="bg-[rgba(255,255,255,.2)]">
+        <header className="bg-[rgba(255,255,255,.4)]">
           <Header />
           <Navbar />
-        </div>
+        </header>
 
         <Routes>
           <Route index element={<HeroLanding />} />
@@ -33,19 +33,17 @@ const Landing = () => {
                 id="#aboutus"
               />
             }
-            />
+          />
         </Routes>
-            
       </div>
-<Routes>
-  <Route index element={<About/>}/>
-</Routes>
+      <Routes>
+        <Route index element={<About />} />
+      </Routes>
       <Routes>
         <Route index element={<PublicationProcess />} />
         <Route path="/aboutus" element={<About />} />
-        <Route path="/faq" element={<Faq/>} />
-        <Route path="/editorspage" element={<EditorsPage/>} />
-        
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/editorspage" element={<EditorsPage />} />
       </Routes>
     </>
   );

@@ -1,107 +1,85 @@
 // Third party imports
-import { Outlet, Link } from "react-router-dom";
-import styled from "styled-components";
+import { useEffect } from "react";
+import { Outlet, Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useSelector } from "react-redux";
 import { Autoplay } from "swiper/modules";
+import { toast } from "react-toastify";
 import "swiper/css";
 import "swiper/css/pagination";
 
 // User imports
-import { Center } from "../../../Elements/Center";
 import { FlexCol, Flex } from "../../../Elements/Flex";
 import { colors } from "../../../constants";
+import Logo from "./../../../Components/Logo";
 import testimonials from "./testimonials";
-
-const Header = ({ heading, message, route, routeTo }) => {
-  return (
-    <>
-      <h3 className="mb-3 text-4xl font-semibold">{heading}</h3>
-      <div className="h-[.3rem] w-16 rounded-3xl bg-black"></div>
-      <p className="mb-8 mt-4 text-darkgrey">
-        {message}
-        {"?  "}
-        <Link to={route} className="text-blue">
-          {routeTo}
-        </Link>
-      </p>
-    </>
-  );
-};
-
-const InputElement = ({ label, error_message, ref, inputOptions }) => {
-  return (
-    <FlexCol className="gap-2">
-      <label
-        htmlFor={label.toLowerCase()}
-        className="text-[#555555] transition-all"
-      >
-        {label}
-      </label>
-      <input
-        ref={ref}
-        {...inputOptions}
-        id={label.toLowerCase()}
-        className={`peer w-[35vw]  rounded-xl border-[1.5px] px-5 py-[.7rem] transition-all  placeholder:text-[#aaaaaa] placeholder-shown:border-gray-300 invalid:border-red-400 placeholder-shown:invalid:border-gray-300 focus:outline-none focus:valid:border-blue  focus:valid:shadow-[0_0_10px_1px_rgba(51,78,255,0.4)] focus:invalid:border-red-400 focus:invalid:shadow-[0_0_10px_1px_rgba(255,0,0,.3)] ${inputOptions.type === "password" ? "tracking-widest" : ""}`}
-      />
-      <p className="block text-sm transition-all peer-placeholder-shown:hidden peer-valid:hidden peer-invalid:text-red-500">
-        {error_message}
-      </p>
-    </FlexCol>
-  );
-};
-
-const Button = styled.button.attrs({
-  className: `text-white text-xl bg-blue text-center py-3 px-4 rounded-3xl shadow-[0_8px_10px_1px_rgba(51,78,255,0.4)] duration-300 hover:translate-y-0.5 transition-all hover:shadow-[0_8px_10px_1px_rgba(51,78,255,0.6)]`,
-  type: "submit",
-})``;
+import getRoute from "./../../../Functions/getRoute";
 
 const SwiperElement = ({ testimonial, profile_image, name, title }) => {
   return (
-    <div className="rounded-2xl bg-[#0f133a] px-8 py-6">
-      <p className="mb-6 font-sans text-base font-light leading-normal tracking-wider">
+    <div className="rounded-2xl bg-[#0f133a] px-6 py-6 lg:px-8">
+      <p className="mb-5 font-sans text-[.9rem] font-light leading-normal tracking-wide lg:mb-6 lg:text-base lg:tracking-wider">
         {testimonial}
       </p>
-      <Flex className="items-center gap-5">
+      <Flex className="items-center gap-3 lg:gap-5">
         <img
           src={profile_image}
           alt={name}
-          className="aspect-square w-14 rounded-2xl object-contain object-center"
+          className="aspect-square w-10 rounded-xl object-contain object-center lg:w-14 lg:rounded-2xl"
         />
-        <FlexCol className="gap-2">
-          <p className="text-lg">{name}</p>
-          <p className="text-xs tracking-widest">{title}</p>
+        <FlexCol className="gap-1 lg:gap-2">
+          <p className="text-base lg:text-lg">{name}</p>
+          <p className="text-[.6rem] tracking-widest  lg:text-xs">{title}</p>
         </FlexCol>
       </Flex>
     </div>
   );
 };
 
+const radialGradient = `radial-gradient(circle at top left,${colors["--var-blue"].value},${colors["--var-blue"].rgba(0.9)} 50%,${colors["--var-blue"].rgba(0.6)} 60%,${colors["--var-blue"].value})`;
+
 const LoginSignup = () => {
-  const radialGradient = `radial-gradient(circle at top left,${colors["--var-blue"].value},${colors["--var-blue"].rgba(0.9)} 50%,${colors["--var-blue"].rgba(0.6)} 60%,${colors["--var-blue"].value})`;
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect");
+
+  useEffect(() => {
+    if (user.token) {
+      if (redirect) navigate(redirect);
+      else navigate(getRoute(user.current_role));
+    }
+  }, [user]);
 
   return (
-    <Center as="main" className="min-h-screen flex-1 bg-[#f5f5f5] px-8 py-8">
-      <div className="grid  max-w-screen-xl grid-cols-[.9fr_1fr] gap-20 rounded-3xl bg-white">
-        <FlexCol
-          className="justify-between gap-32 rounded-3xl px-8 py-8 text-white"
+    <main className="px-6 py-12 md:flex md:min-h-screen  md:items-center md:justify-center md:bg-[#f5f5f5] md:px-6 md:py-8 lg:p-8">
+      <div className="md:grid md:max-w-screen-2xl md:grid-cols-[.7fr_1.1fr] md:gap-10 md:rounded-2xl md:bg-white lg:gap-16 lg:rounded-3xl ">
+        {/* Left Panel */}
+        <div
+          className="hidden flex-col justify-between gap-32 rounded-2xl px-6 py-8 text-white md:flex lg:rounded-3xl lg:py-12 "
           style={{
             background: radialGradient,
           }}
         >
           <FlexCol className="gap-16">
-            <h1 className="text-4xl font-bold tracking-wide"> Satyam </h1>
-            <FlexCol className="gap-2">
-              <h2 className="mb-2 text-2xl font-medium ">
+            <Link to="/">
+              <h1 className="text-3xl font-bold tracking-wide lg:text-4xl">
+                Satyam
+              </h1>
+            </Link>
+            <FlexCol className="gap-3 lg:gap-4">
+              <h2 className=" text-xl font-medium lg:text-2xl ">
                 Commence your
                 <br /> publishing journey with us.
               </h2>
-              <p className="font-spans  text-justify text-base font-thin">
+              <p className=" text-xs font-thin md:text-base">
                 Explore boundless opportunities for sharing
                 <br /> your research and ideas or sharing <br />
                 your research and ideas.
               </p>
             </FlexCol>
           </FlexCol>
+
           <Swiper
             autoplay={{
               delay: 3000,
@@ -110,7 +88,7 @@ const LoginSignup = () => {
             loop="true"
             slidesPerView={"auto"}
             modules={[Autoplay]}
-            className="w-[23rem] "
+            className=" w-[18rem] lg:w-[25rem]"
           >
             <SwiperSlide>
               <SwiperElement {...testimonials[0]} />
@@ -122,13 +100,16 @@ const LoginSignup = () => {
               <SwiperElement {...testimonials[2]} />
             </SwiperSlide>
           </Swiper>
-        </FlexCol>
+        </div>
 
-        <Outlet />
+        <FlexCol className="items-stretch justify-center gap-20 md:gap-0  md:py-12 md:pr-8 lg:pr-12">
+          <Link to="/" className="block self-center md:hidden">
+            <Logo type="long" size={6} />
+          </Link>
+          <Outlet />
+        </FlexCol>
       </div>
-    </Center>
+    </main>
   );
 };
 export default LoginSignup;
-
-export { Header, InputElement, Button };

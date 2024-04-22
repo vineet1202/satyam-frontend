@@ -20,14 +20,27 @@ export default {
           },
         },
         scaleUp: {
+          "0%": { transform: "scale(0)" },
+          "80%": { transform: "scale(1.2)" },
+          "100%": { transform: "scale(1)" },
+        },
+        spinCustom: {
+          "100%": { transform: "translate(-50%,-50%) rotate(360deg)" },
+        },
+        catcher: {
           "100%": {
-            transform: "scale(1.1,2)",
+            left: "100%",
+            transform: "translateX(-75%) scale(.5,1) ",
           },
+          // "100%": {
+          //   left: "0",
+          //   transform: "scale(1)",
+          // },
         },
       },
       screens: {
         xxsm: "380px",
-        xsm: "520px",
+        xsm: "480px",
       },
     },
   },
