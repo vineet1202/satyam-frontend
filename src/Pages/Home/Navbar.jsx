@@ -1,107 +1,33 @@
 // Third
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { FiSearch } from "react-icons/fi";
+import { FaAngleDown } from "react-icons/fa6";
 
 // User
 import { Flex, FlexCol } from "../../Elements/Flex";
-import ChevronRight from "./../../assets/img/icons/chevron-right.svg";
+import useDimensions from "./../../Hooks/useDimensions";
 
-const links = [
-  {
-    href: "/",
-    name: "Home",
-  },
-  {
-    name: "About Us",
-    children: [
-      { href: "/aboutus", name: "About us" },
-      {
-        href: "/aboutinstitute",
-        name: "About Institute",
-      },
-    ],
-  },
-  {
-    name: "Editorial Board",
-    children: [
-      { href: "/editorspage", name: "Editors Page" },
-      {
-        href: "/aboutinstitute",
-        name: "About Institute",
-      },
-    ],
-  },
-  {
-    name: "Guidelines for author",
-    children: [
-      { href: "/aboutus", name: "About us" },
-      {
-        href: "/aboutinstitute",
-        name: "About Institute",
-      },
-    ],
-  },
-  {
-    name: "Issues",
-    children: [
-      { href: "/issues/current", name: "Current Issue" },
-      {
-        href: "/issues/previous",
-        name: "Previous Issue",
-      },
-      {
-        href: "/issues/newsletter",
-        name: "Subscribe",
-      },
-    ],
-  },
-  {
-    name: "Submission",
-    children: [
-      { href: "/track", name: "Track" },
-      {
-        href: "/upload",
-        name: "Upload",
-      },
-    ],
-  },
-  {
-    name: "Contact Us",
-    href: "/contactus",
-  },
-];
-
-const NavBarItem = ({ href, name }) => {
-  return (
-    <NavLink to={href} className="group block pb-4">
-      <div className="text-lg hover:text-blue group-[.active]:text-blue">
-        {name}
-      </div>
-    </NavLink>
-  );
-};
-
-const NavBarItemDropable = ({ name, childs }) => {
+const NavBarItemDropable = ({ title, subLinks }) => {
   const [dropDownState, setDropDownState] = useState(false);
   const handleDropDownState = () => setDropDownState((prev) => !prev);
 
   return (
     <Flex
-      className="relative cursor-pointer items-center gap-4 pb-4 text-lg hover:text-blue"
+      className="relative cursor-pointer text-gray-700 transition-all items-center gap-3 pb-4 text-base  lg:text-[1.1rem] xl:text-[1.2rem] hover:text-blue"
       onMouseEnter={handleDropDownState}
-      onMouseLeave={handleDropDownState}
-    >
-      {name}
-      <img src={ChevronRight} className="aspect-square w-5 rotate-90" />
+      onMouseLeave={handleDropDownState}>
+      {title}
+      <FaAngleDown className="text-sm" />
       {dropDownState && (
-        <FlexCol className="absolute left-1/2 top-full z-10 min-w-56 max-w-min  animate-[slideInUp_200ms_ease-in_forwards]  rounded-b-xl rounded-t-[.2rem] border-t-2 border-blue bg-white shadow-xl ">
-          {childs.map((child, index) => (
+        <FlexCol className="absolute left-1/2 top-full z-10 w-72  animate-[slideInUp_200ms_ease-in_forwards]  rounded-b-xl rounded-t-[.2rem] border-t-2 border-blue bg-white shadow-xl ">
+          {subLinks.map(({ title, link }) => (
             <Link
-              key={index}
-              to={child.href}
-              className=" border-b-[.5px] border-grey px-8 py-4  text-center text-lg text-black last:border-none hover:text-blue "
-            >
-              {child.name}
+              key={link}
+              to={link}
+              className=" border-b-[.5px] border-gray-400 px-4 py-4  text-center text-base text-black last:border-none hover:text-blue ">
+              {title}
             </Link>
           ))}
         </FlexCol>
@@ -110,20 +36,34 @@ const NavBarItemDropable = ({ name, childs }) => {
   );
 };
 
-const Navbar = () => {
+const Navbar = ({ links }) => {
+  const isMobile = useDimensions().width < 768;
+
   return (
-    <Flex className="mb-2 flex items-center justify-center gap-12 px-4  pb-8">
-      {links.map((link, index) =>
-        link.children ? (
-          <NavBarItemDropable
-            name={link.name}
-            childs={link.children}
-            key={index}
-          />
-        ) : (
-          <NavBarItem name={link.name} href={link.href} key={index} />
-        ),
+    <Flex
+      as="nav"
+      className="bg-[rgba(255,255,255,.9)] items-end  justify-center gap-6 lg:gap-12 xl:gap-16 px-4 xsm:px-8 sm:px-12 md:px-4 lg:px-8 xl:px-12  pb-4 ">
+      {!isMobile && (
+        <>
+          <NavLink to="/" className="group pb-4">
+            <p className=" group-[.active]:text-blue text-base lg:text-[1.1rem] xl:text-[1.2rem] text-gray-700 hover:text-blue">
+              Home
+            </p>
+          </NavLink>
+          {links.map(({ title, subLinks }) => (
+            <NavBarItemDropable title={title} subLinks={subLinks} key={title} />
+          ))}
+        </>
       )}
+
+      <Flex className="w-full md:w-72 lg:w-96 py-4 px-6 md:px-4 md:py-2 items-center ml-auto gap-4 border-[1px] border-gray-400  rounded-xl ">
+        <FiSearch className="text-2xl" />
+        <input
+          type="text"
+          className="w-full placeholder:text-gray-600 py-[.1rem] focus:outline-none"
+          placeholder="Find anything here"
+        />
+      </Flex>
     </Flex>
   );
 };

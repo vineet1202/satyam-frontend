@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useCallback, useState } from "react";
 
 const useDimensions = () => {
@@ -7,8 +8,15 @@ const useDimensions = () => {
     setDimensions({ width: window.innerWidth, height: window.innerHeight });
   }, [setDimensions]);
 
-  window.addEventListener("resize", dimensionsSetter);
-  window.addEventListener("rotate", dimensionsSetter);
+  useEffect(() => {
+    window.addEventListener("resize", dimensionsSetter);
+    window.addEventListener("rotate", dimensionsSetter);
+
+    return () => {
+      window.removeEventListener("resize", dimensionsSetter);
+      window.removeEventListener("rotate", dimensionsSetter);
+    };
+  }, []);
 
   return dimensions;
 };
