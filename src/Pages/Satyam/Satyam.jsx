@@ -24,7 +24,7 @@ const ManageUsers = lazy(() => import("./ManageUsers/ManageUsers"));
 const links = [
   {
     Icon: DashboardIcon,
-    link: "/satyam/dashboard",
+    link: "/satyam",
     title: "Dashboard",
   },
   {
@@ -81,7 +81,6 @@ const Satyam = () => {
   }, [user]);
 
   const [navState, setNavState] = useState("collapsed");
-
   const handleNavStateToggle = () => setNavState((state) => (state === "collapsed" ? "open" : "collapsed"));
 
   return (
@@ -100,7 +99,6 @@ const Satyam = () => {
 
           <Routes>
             <Route index element={<Dashboard />} />
-            <Route path="dashboard" element={<Dashboard />} />
             <Route path="manageusers" element={<ManageUsers />} />
           </Routes>
         </Main>
