@@ -13,7 +13,7 @@ const LinkElementWithChild = ({ Icon, title, subLinks, navState, onClickHandler,
     <div className={`group grid grid-cols-[1fr_5fr] gap-4 items-center ${className}`}>
       <Icon className="text-[1.7rem] text-[#9897b1] group-[.active]:text-blue" />
       {navState === "open" && <p className="transition-all text-xl group-[.active]:text-blue">{title}</p>}
-      <FlexCol className="col-[2/3] gap-3 ">
+      <FlexCol className="col-[2/3] gap-3 items-start">
         {subLinks.map(({ link, title, onClickHandlerCustom }) =>
           link ? (
             <NavLink key={title} to={link} onClick={onClickHandler} className="group">
