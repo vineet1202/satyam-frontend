@@ -6,8 +6,8 @@ const Loader = () => {
   return (
     <FlexCol as={CenterAbsolute}>
       <div className="relative ">
-        <Logo type="long" size={5} />
-        <span className="absolute -bottom-12 left-0 block h-2 w-16  animate-[catcher_.75s_infinite_linear_alternate] rounded-3xl bg-blue" />
+        <Logo type="long" size={4} />
+        <span className="absolute -bottom-4 left-0 block h-2 w-16  animate-[catcher_.75s_infinite_linear_alternate] rounded-3xl bg-blue" />
       </div>
     </FlexCol>
   );

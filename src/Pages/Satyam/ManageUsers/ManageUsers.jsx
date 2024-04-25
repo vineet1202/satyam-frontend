@@ -1,5 +1,5 @@
 // Third party
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { CiExport } from "react-icons/ci";
 import { IoAdd } from "react-icons/io5";
 import { FiSearch } from "react-icons/fi";
@@ -8,13 +8,11 @@ import { SlOptionsVertical } from "react-icons/sl";
 
 // User
 import { Flex } from "../../../Elements/Flex";
-import { useState } from "react";
 import ProfileImage from "../../../Components/ProfileImage";
 import Modal from "../../../Components/Modal";
 import generateExcel from "../../../Functions/generateExcelFile";
 import { Center } from "../../../Elements/Center";
 import filterUsers from "./filteruser";
-import Input from "../../../Components/Input";
 import NewUser from "./NewUser";
 import Select from "../../../Components/Select";
 
@@ -220,7 +218,7 @@ const ManageUsers = () => {
           <input type="text" placeholder=" Search by name,email,role" />
           <FiSearch className="text-2xl"></FiSearch>
         </Flex>
-        <Select options={roleOptions}  onChangeHandler={filterRoleToggleHandler} />
+        <Select options={roleOptions} onChangeHandler={filterRoleToggleHandler} />
         <Select options={stateOptions} onChangeHandler={filterStateToggleHandler} />
       </Flex>
 
@@ -252,7 +250,8 @@ const ManageUsers = () => {
           </Fragment>
         ))}
       </div>
-      <Modal state={modalState} hideModalHandler={modalStateToggleHandler} className="rounded-3xl">
+
+      <Modal state={modalState} hideModalHandler={modalStateToggleHandler} className="rounded-2xl">
         <NewUser hideModalHandler={modalStateToggleHandler} />
       </Modal>
     </section>
@@ -261,40 +260,3 @@ const ManageUsers = () => {
 
 export default ManageUsers;
 
-{
-  /* Header */
-}
-// <Flex className="items-center] justify-between">
-//   <h1>Manage Users</h1>
-//   <Flex className="items-center gap-6">
-//     <Flex
-//       as="button"
-//       className="items-center border-2 border-blue text-blue"
-//     >
-//       Download CSV
-//       <img src={CaretDown} alt="" className="aspect-square w-6" />
-//     </Flex>
-//     <Flex as="button" className="items-center bg-blue text-white">
-//       <img src={Plus} alt="" className="aspect-square w-6" />
-//       New
-//     </Flex>
-//   </Flex>
-// </Flex>
-
-// <table width="100%">
-//   <tr>
-//     <th>Name</th>
-//     <th>Phone No</th>
-//     <th>Role</th>
-//     <th>Added On</th>
-//     <th>Status</th>
-//   </tr>
-//   <tr className="text-center">
-//     <td>Name</td>
-//     <td>Phone No</td>
-//     <td>Role</td>
-//     <td>Added On</td>
-//     <td>Status</td>
-//     <td>Delete account</td>
-//   </tr>
-// </table>

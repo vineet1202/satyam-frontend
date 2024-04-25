@@ -44,7 +44,6 @@ const Login = () => {
       // success: "Logged in",
       error: {
         render({ data }) {
-          console.log(response);
           if (data?.response?.data) {
             const statusCode = data.response.status;
             // TODO status code for different login

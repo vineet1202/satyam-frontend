@@ -1,57 +1,133 @@
 // Third party
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 // User
 import Input from "../../../Components/Input";
 import Select from "../../../Components/Select";
-import { Flex } from "../../../Elements/Flex";
+import { Flex, FlexCol } from "../../../Elements/Flex";
+import newUserValidator from "../../../validators/newUser";
+import zodErrorThrow from "../../../Functions/zodErrorThrow";
+import { useMutation } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import StatusIcons from "../../../Components/StatusIcons";
+import { Center } from "../../../Elements/Center";
 
 const roleOptions = [
-  { label: "Select a role", value: "*" },
   { label: "Admin", value: "satyam-admin" },
   { label: "Chief Editor", value: "satyam-chief-editor" },
   { label: "Member", value: "satyam-member" },
 ];
 
 const NewUser = ({ hideModalHandler }) => {
+  const user = useSelector((state) => state.user);
+  const [status, setStatus] = useState("form");
   const nameRef = useRef();
   const emailRef = useRef();
   const roleRef = useRef();
 
-  return (
-    <div className="px-8 py-4">
-      <Flex className="items-start gap-4 justify-between">
-        <div>
-          <h1>Add new user</h1>
-          <p></p>
-        </div>
-        <IoClose className="text-2xl" />
-      </Flex>
-      <form>
-        <Input
-          inputOptions={{
-            type: "text",
-            placeholder: "Sahil aggarwal",
-            required: true,
-            ref: nameRef,
-          }}
-          label="Name"
-          error_message="Please provide the name."
-        />
-        <Input
-          inputOptions={{
-            type: "email",
-            placeholder: "sahilaggarwal2004@gmail.com",
-            required: true,
-            ref: emailRef,
-          }}
-          label="Email"
-          error_message="Please provide a valid email address."
-        />
+  const newUserMutation = useMutation({ mutationFn: (promise) => promise });
 
-        <Select options={roleOptions} ref={roleRef} />
-      </form>
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    const name = nameRef.current.value;
+    const email = emailRef.current.value;
+    const role = roleRef.current.value;
+
+    const payload = newUserValidator.safeParse({ name, email, role });
+
+    if (zodErrorThrow(payload.error)) return;
+
+    const query = axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/auth/signup`,
+      { password: "testpassword", ...payload.data },
+      {
+        headers: {
+          token: user.token,
+          dimensions: window.screen.width + window.screen.height,
+        },
+      }
+    );
+
+    newUserMutation.mutate(query);
+    setStatus("loading");
+  };
+
+  if (newUserMutation.isError) {
+    setStatus("error");
+    newUserMutation.reset();
+  }
+
+  if (newUserMutation.isSuccess) {
+    setStatus("success");
+    newUserMutation.reset();
+  }
+
+  return (
+    <div className="px-8 pt-4 pb-8 max-w-[40rem] w-[90vw] max-h-[75vh] overflow-y-auto no-scrollbar">
+      {status === "form" && (
+        <>
+          <Flex className="items-start gap-12 justify-between border-b-2 border-gray-200 pb-4">
+            <div>
+              <h1 className="text-lg font-bold mb-1">ADD NEW USER</h1>
+              <p className="text-sm tracking-wide text-gray-500">
+                Enter user details and we'll send a verification email to confirm account.
+              </p>
+            </div>
+            <IoClose className="text-3xl" onClick={hideModalHandler} />
+          </Flex>
+          <h2 className="my-2 text-base font-medium">USER INFORMATION</h2>
+          <FlexCol as="form" className="gap-4" onSubmit={formSubmitHandler}>
+            <Input
+              inputOptions={{
+                type: "text",
+                placeholder: "Sahil aggarwal",
+                required: true,
+                ref: nameRef,
+              }}
+              label="Name"
+              error_message="Please provide the name."
+            />
+            <Input
+              inputOptions={{
+                type: "email",
+                placeholder: "sahilaggarwal2004@gmail.com",
+                required: true,
+                ref: emailRef,
+              }}
+              label="Email"
+              error_message="Please provide a valid email address."
+            />
+
+            <Select
+              options={roleOptions}
+              id="role"
+              ref={roleRef}
+              label={"Select a user"}
+              defaultValue="satyam-member"
+            />
+            <div className="grid grid-cols-[1fr_1fr] items-center gap-4 justify-center mt-2">
+              <button type="submit" className="bg-blue rounded-2xl  text-white py-3">
+                Add New User
+              </button>
+              <button
+                type="button"
+                onClick={hideModalHandler}
+                className="border-blue border-[1px] tracking-wide  rounded-2xl  py-3">
+                Cancel
+              </button>
+            </div>
+          </FlexCol>
+        </>
+      )}
+      {status !== "form" && (
+        <Center className="py-12">
+          {status === "loading" && <StatusIcons status="pending" />}
+          {status === "error" && <StatusIcons status="error" />}
+          {status === "success" && <StatusIcons status="success" />}
+        </Center>
+      )}
     </div>
   );
 };

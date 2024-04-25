@@ -28,9 +28,9 @@ const DialogModal = ({ className, children, state, hideModalHandler }) => {
       const dialogDimensions = event.target.getBoundingClientRect();
       if (
         event.clientX < dialogDimensions.left ||
-        e.clientX > dialogDimensions.right ||
-        e.clientY < dialogDimensions.top ||
-        e.clientY > dialogDimensions.bottom
+        event.clientX > dialogDimensions.right ||
+        event.clientY < dialogDimensions.top ||
+        event.clientY > dialogDimensions.bottom
       ) {
         hideModalHandler();
       }

@@ -11,7 +11,6 @@ const PasswordIcon = styled.svg.attrs({
 
 const Input = ({ label, error_message, inputOptions }) => {
   const [inputType, setInputType] = useState(inputOptions.type);
-
   const inputTypeToggleHandler = () => setInputType((inputType) => (inputType === "password" ? "text" : "password"));
 
   return (

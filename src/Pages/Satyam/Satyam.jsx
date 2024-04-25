@@ -24,7 +24,7 @@ const ManageUsers = lazy(() => import("./ManageUsers/ManageUsers"));
 const links = [
   {
     Icon: DashboardIcon,
-    link: "/satyam",
+    link: "/satyam/dashboard",
     title: "Dashboard",
   },
   {
@@ -54,12 +54,6 @@ const links = [
   },
 ];
 
-function getScrollbarWidth() {
-  return document.documentElement.clientHeight < document.documentElement.scrollHeight
-    ? `${window.innerWidth - document.documentElement.clientWidth}px - 20px`
-    : "0px";
-}
-
 const Main = styled.main.attrs({
   className: "md:no-scrollbar  bg-[#f9faff] relative md:absolute md:left-full md:top-0 md:h-full  md:overflow-y-scroll",
 })`
@@ -76,7 +70,7 @@ const Satyam = () => {
     if (!user.token || !user.name || !user.email || !user?.default_role?.startsWith("satyam")) {
       const redirect = window.location.pathname;
       navigate(`/auth/login?redirect=${redirect}`);
-      toast.error("Please login first");
+      toast.error("To continue, please sign in to your account.");
     }
   }, [user]);
 
@@ -99,6 +93,7 @@ const Satyam = () => {
 
           <Routes>
             <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="manageusers" element={<ManageUsers />} />
           </Routes>
         </Main>
