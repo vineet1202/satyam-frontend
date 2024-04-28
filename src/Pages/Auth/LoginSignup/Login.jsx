@@ -12,7 +12,7 @@ import { loginValidator } from "../../../validators/auth";
 import { update } from "../../../store/userslice";
 import { setItem } from "../../../Functions/storage";
 import zodErrorThrow from "../../../Functions/zodErrorThrow";
-import Input from "../../../Components/Input";
+import Input, { InputPassword } from "../../../Components/Input";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -31,13 +31,9 @@ const Login = () => {
 
     if (zodErrorThrow(payload.error)) return;
 
-    const query = axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
-      payload.data,
-      {
-        headers: { dimensions: window.screen.width + window.screen.height },
-      }
-    );
+    const query = axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, payload.data, {
+      headers: { dimensions: window.screen.width + window.screen.height },
+    });
 
     toast.promise(query, {
       pending: "Logging in",
@@ -73,9 +69,7 @@ const Login = () => {
     };
 
     setItem("info", JSON.stringify(userData));
-    dispatch(
-      update({ token: data.token, ...userData, current_role: data.type })
-    );
+    dispatch(update({ token: data.token, ...userData, current_role: data.type }));
 
     mutation.reset();
   }
@@ -85,40 +79,25 @@ const Login = () => {
 
   return (
     <FlexCol className=" transition-all">
-      <Header
-        heading="Login"
-        message="Create a new account"
-        route="/auth/signup"
-        routeTo="Sign up"
-      />
+      <Header heading="Login" message="Create a new account" route="/auth/signup" routeTo="Sign up" />
       <FlexCol as="form" onSubmit={loginHandler}>
         <FlexCol className="mb-8 gap-6 transition-all md:mb-4">
           <Input
-            inputOptions={{
-              type: "email",
-              placeholder: "sahilaggarwal2004@gmail.com",
-              required: true,
-              ref: emailRef,
-            }}
+            type="email"
+            placeholder="sahilaggarwal2004@gmail.com"
+            ref={emailRef}
             label="Email"
             error_message="Please provide a valid email address."
           />
-          <Input
-            inputOptions={{
-              type: "password",
-              placeholder: "••••••••",
-              minLength: 8,
-              required: true,
-              ref: passwordRef,
-            }}
+          <InputPassword
+            placeholder="••••••••"
+            minLength={8}
+            ref={passwordRef}
             label="Password"
             error_message="Password must be atleast 8 char long"
           />
         </FlexCol>
-        <Link
-          to="./../forgotpassword"
-          className="mb-4 self-end text-lg text-blue md:text-base"
-        >
+        <Link to="./../forgotpassword" className="mb-4 self-end text-lg text-blue md:text-base">
           Forgot Password ?
         </Link>
         <Button>Login</Button>

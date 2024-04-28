@@ -6,3 +6,5 @@ export const colors = {
     },
   },
 };
+
+export const userRoles = ["author", "reviewer", "satyam-member", "satyam-chief-editor", "satyam-admin"];

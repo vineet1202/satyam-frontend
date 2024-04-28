@@ -10,7 +10,7 @@ import { FlexCol, Flex } from "../../../Elements/Flex";
 import Header from "./Components/Header";
 import Button from "./Components/Button";
 import { signupValidator } from "../../../validators/auth";
-import Input from "../../../Components/Input";
+import Input, { InputPassword } from "../../../Components/Input";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -62,43 +62,26 @@ const Signup = () => {
       <Header heading="Sign Up" message="Have an account" route="/auth/login" routeTo="Login" />
       <FlexCol as="form" onSubmit={signupHandler}>
         <FlexCol className="mb-4 gap-4 transition-all">
+          <Input placeholder="Sahil aggarwal" ref={nameRef} label="Name" error_message="Please provide the name." />
           <Input
-            inputOptions={{
-              type: "text",
-              placeholder: "Sahil aggarwal",
-              required: true,
-              ref: nameRef,
-            }}
-            label="Name"
-            error_message="Please provide the name."
-          />
-          <Input
-            inputOptions={{
-              type: "email",
-              placeholder: "sahilaggarwal2004@gmail.com",
-              ref: emailRef,
-              required: true,
-            }}
+            type="email"
+            placeholder="sahilaggarwal2004@gmail.com"
+            ref={emailRef}
             label="Email"
             error_message="Please provide a valid email address."
           />
           <Input
-            inputOptions={{
-              type: "email",
-              placeholder: "sahilaggarwal2004@gmail.com",
-              ref: alternateEmailRef,
-            }}
+            type="email"
+            placeholder="sahilaggarwal2004@gmail.com"
+            ref={alternateEmailRef}
+            required={false}
             label="Alternate Email"
             error_message="Please provide a valid email address."
           />
-          <Input
-            inputOptions={{
-              type: "password",
-              placeholder: "••••••••",
-              minLength: 8,
-              required: true,
-              ref: passwordRef,
-            }}
+          <InputPassword
+            placeholder="••••••••"
+            minLength={8}
+            ref={passwordRef}
             label="Password"
             error_message="Password must be atleast 8 char long"
           />

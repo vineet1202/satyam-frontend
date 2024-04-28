@@ -11,6 +11,7 @@ import { getItem } from "../Functions/storage.js";
 //   image: "img.png",
 //   default_role: "author",
 //   current_role: "reviewer",
+//   token:"egfegufgugufkwegukfgkuegufgkwewegkufgjkewjgfkweekug"
 // };
 
 const useinitAuth = () => {

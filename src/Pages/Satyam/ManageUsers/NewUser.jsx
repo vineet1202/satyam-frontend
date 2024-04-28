@@ -22,7 +22,7 @@ const roleOptions = [
 
 const NewUser = ({ hideModalHandler }) => {
   const user = useSelector((state) => state.user);
-  const [status, setStatus] = useState("form");
+  const [status, setStatus] = useState("form"); //"form" or "status"
   const nameRef = useRef();
   const emailRef = useRef();
   const roleRef = useRef();
@@ -33,9 +33,9 @@ const NewUser = ({ hideModalHandler }) => {
     event.preventDefault();
     const name = nameRef.current.value;
     const email = emailRef.current.value;
-    const role = roleRef.current.value;
+    const type = roleRef.current.value;
 
-    const payload = newUserValidator.safeParse({ name, email, role });
+    const payload = newUserValidator.safeParse({ name, email, type });
 
     if (zodErrorThrow(payload.error)) return;
 
@@ -79,23 +79,11 @@ const NewUser = ({ hideModalHandler }) => {
           </Flex>
           <h2 className="my-2 text-base font-medium">USER INFORMATION</h2>
           <FlexCol as="form" className="gap-4" onSubmit={formSubmitHandler}>
+            <Input placeholder="Sahil aggarwal" ref={nameRef} label="Name" error_message="Please provide the name." />
             <Input
-              inputOptions={{
-                type: "text",
-                placeholder: "Sahil aggarwal",
-                required: true,
-                ref: nameRef,
-              }}
-              label="Name"
-              error_message="Please provide the name."
-            />
-            <Input
-              inputOptions={{
-                type: "email",
-                placeholder: "sahilaggarwal2004@gmail.com",
-                required: true,
-                ref: emailRef,
-              }}
+              type="email"
+              placeholder="sahilaggarwal2004@gmail.com"
+              ref={emailRef}
               label="Email"
               error_message="Please provide a valid email address."
             />
@@ -122,11 +110,14 @@ const NewUser = ({ hideModalHandler }) => {
         </>
       )}
       {status !== "form" && (
-        <Center className="py-12">
-          {status === "loading" && <StatusIcons status="pending" />}
-          {status === "error" && <StatusIcons status="error" />}
-          {status === "success" && <StatusIcons status="success" />}
-        </Center>
+        <FlexCol>
+          <h2></h2>
+          <Center className="py-12">
+            {status === "loading" && <StatusIcons status="pending" />}
+            {status === "error" && <StatusIcons status="error" />}
+            {status === "success" && <StatusIcons status="success" />}
+          </Center>
+        </FlexCol>
       )}
     </div>
   );

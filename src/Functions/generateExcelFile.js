@@ -1,4 +1,4 @@
-import * as XLSX from "xlsx/xlsx.mjs";
+import { utils, writeFile } from "xlsx/xlsx.mjs";
 
 // headings - string[]
 // jsonData - array of objects
@@ -13,10 +13,10 @@ const generateExcel = (jsonData, headings) => {
 
   console.log(jsonDataFormatted);
 
-  const worksheet = XLSX.utils.json_to_sheet(jsonDataFormatted);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
-  XLSX.writeFile(workbook, "satyam-users.xlsx");
+  const worksheet = utils.json_to_sheet(jsonDataFormatted);
+  const workbook = utils.book_new();
+  utils.book_append_sheet(workbook, worksheet, "Users");
+  writeFile(workbook, "satyam-users.xlsx");
 };
 
 export default generateExcel;

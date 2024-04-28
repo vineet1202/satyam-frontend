@@ -18,6 +18,7 @@ import SideBar from "../../Components/SideBar";
 import Searchbar from "./Searchbar";
 import { Flex } from "../../Elements/Flex";
 import { useEffect } from "react";
+import useProtectRoute from "../../Hooks/useProtectRoute";
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
 const ManageUsers = lazy(() => import("./ManageUsers/ManageUsers"));
 
@@ -63,16 +64,7 @@ const Main = styled.main.attrs({
 `;
 
 const Satyam = () => {
-  const user = useSelector((state) => state.user);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user.token || !user.name || !user.email || !user?.default_role?.startsWith("satyam")) {
-      const redirect = window.location.pathname;
-      navigate(`/auth/login?redirect=${redirect}`);
-      toast.error("To continue, please sign in to your account.");
-    }
-  }, [user]);
+  useProtectRoute("satyam");
 
   const [navState, setNavState] = useState("collapsed");
   const handleNavStateToggle = () => setNavState((state) => (state === "collapsed" ? "open" : "collapsed"));

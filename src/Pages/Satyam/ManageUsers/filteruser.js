@@ -1,6 +1,7 @@
 const filterUsers = (users, filterRole, filterState, sortName = "asc", sortEmail = "asc") => {
+
   if (filterRole !== "*") users = users.filter((user) => user.role === filterRole);
-  if (filterState !== "*") users = users.filter((user) => user.state === filterState);
+  if (filterState !== "*") users = users.filter((user) => user.status === filterState);
 
   return users.sort(({ name: name1, email: email1 }, { name: name2, email: email2 }) => {
     if (name1 === name2) {
