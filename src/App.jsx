@@ -12,7 +12,6 @@ const Satyam = lazy(() => import("./Pages/Satyam/Satyam"));
 const Auth = lazy(() => import("./Pages/Auth/Auth"));
 const Reviewer = lazy(() => import("./Pages/Reviewer/Reviewer"));
 const Dashboard = lazy(() => import("./Pages/Reviewer/Dashboard"));
-const Upload = lazy(() => import("./Pages/Author/Upload"));
 const Author = lazy(() => import("./Pages/Author/Author"));
 
 const App = () => {
@@ -25,7 +24,6 @@ const App = () => {
           <Route path="/*" element={<Landing />} />
           <Route path="/auth/*" element={<Auth />} />
           <Route path="/satyam/*" element={<Satyam />} />
-          <Route path="/author/upload/*" element={<Upload />} />
           <Route path="/author/*" element={<Author />} />
           <Route path="/reviewer" element={<Reviewer />} />
           <Route path="/reviewer/dashboard/:id" element={<Dashboard />} />
@@ -51,5 +49,3 @@ const App = () => {
 };
 
 export default App;
-
-
