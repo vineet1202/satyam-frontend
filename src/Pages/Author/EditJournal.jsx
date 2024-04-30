@@ -197,7 +197,7 @@ const EditJournal = () => {
       return false;
     }
   };
-  // console.log(formData);
+  console.log(formData);
 
   const save = async () => {
     try {
@@ -284,7 +284,7 @@ const EditJournal = () => {
             className="border border-slate-300 mb-2 text-xl p-2"
             onChange={handleChange}
           />
-          {formData.pdf.name && (
+          {formData.pdf && (
             <p className="text-xl mt-4">
               Keep <b>{formData.pdf.name}</b> or
             </p>
